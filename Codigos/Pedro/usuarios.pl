@@ -1,20 +1,34 @@
- %Pagina ex 1
-usuarios(_Pedido) :-
-    reply_html_page(
-            bootstrap,
-            [ title('Cadastro')],
-            [ div(class(container),
-                [ \html_requires(css('estilo.css')),
-                    h2(class("my-5 text-center"),
-                        'Insira os dados para cadastro'),
-                    \campo(idusuarios,'Id de Usuario:',number),
-                    \campo(usuario,'Usuario:',text),
-                    \campo(nome,'Nome:',text),
-                    \campo(senha,'Senha:',text),
-                    \campo(confirmaSenha,'Corfirme a senha:',text),
+/*Tabela usuario com chaves*/
+
+:- module(
+       usuarios,
+       [ usuarios/5,
+            insere/5]
+   ).
+
+:- use_module(library(persistency)).
+:- persistent
+   usuarios( idusuarios:nonneg,
+                    usuario:atom,
+                    nome:atom,
+                    senha:atom,
+                    confirmaSenha:atom).
+
+:- initialization(db_attach('tbl_usuarios.pl', [])).
 
 
-                    p(button([class('btn btn-primary'), type(submit)],'Cadastrar')),
-                    \retorna_home  ])]).
+insere(Iduser,User,Nome,Senha,Confirmasenha):-
+    with_mutex(usuarios,
+               assert_usuarios(Iduser,User,Nome,Senha,Confirmasenha)).
 
+/* remove(Iduser):-
+    with_mutex(chaveUsuario,
+               retract_chaveUsuario(Iduser,User,Nome,Senha,Confirmasenha)).
 
+atualiza((Iduser,User,Nome,Senha,Confirmasenha)):-
+    with_mutex(chaveUsuario,
+               ( retractall_chaveUsuario(Iduser,User,Nome,Senha,Confirmasenha),
+                 assert_chaveUsuario(Iduser,User,Nome,Senha,Confirmasenha)) ).
+ */
+sincroniza :-
+    db_sync(gc(always)).
