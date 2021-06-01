@@ -136,10 +136,14 @@ recebe_formulario_usuarios(post,Pedido) :-
             fail),
         !,
         usuarios:insere(Iduser,Usuario,Nome,Senha,Confirmasenha),
-        reply_html_page( bootstrap,[title('Demonstracao de POST')],
-        [ p('Pedido recebido.'),
-            \retorna_home
-        ]).
+        reply_html_page(
+            bootstrap,
+            [ title('Cadastro Realizado')],
+            [ div(class(container),
+                [ h1('Pedido Recebido.'),
+                    \retorna_home
+                        ])
+            ]).
 /*        format('Content-type:text/html~n~n', []),
         format('<p>', []),
         portray_clause([Iduser,Usuario,Nome,Senha,Confirmasenha]), % escreve os dados do corpo
@@ -210,10 +214,14 @@ recebe_formulario_clientes(post, Pedido) :-
                         TipoPessoa,CnpjCpf,InscricaoEstadual,
                         InscricaoMunicipal,Endereco,Bairro,Municipio,Cep,Uf,
                         Telefone,Email,NomeTitular,Cpf,Funcao),
-        reply_html_page( bootstrap,[title('Demonstracao de POST')],
-        [ p('Pedido recebido.'),
-            \retorna_home
-        ]).
+        reply_html_page(
+            bootstrap,
+            [ title('Cadastro Realizado')],
+            [ div(class(container),
+                [ h1('Pedido Recebido.'),
+                    \retorna_home
+                        ])
+            ]).
 
 
 
