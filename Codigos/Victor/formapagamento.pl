@@ -9,9 +9,12 @@
    tabFormaPag(id_formapagamento:nonneg,
                 descr_formapagento:atom).
 
-:- initialization(db_attach('C:/UFU_repositorio/ProLog/Trabalho/tbl_formaPagamento.pl', [])).
+:- initialization( ( db_attach('C:/UFU_repositorio/ProLog/Trabalho/tbl_formaPagamento.pl', []),
+                     at_halt(db_sync(gc(always))) )).
+
 
 insere(Id_formapagamento, Descr_formapagento):-
+    chave:pk(formapagamento, Id_formapagamento),
     with_mutex(tabFormaPag,
                assert_tabFormaPag(Id_formapagamento, Descr_formapagento)).
 
@@ -23,6 +26,3 @@ atualiza(Id_formapagamento, Descr_formapagento):-
     with_mutex(tabFormaPag,
                (  retractall_tabFormaPag(Id_formapagamento,_),
                   assert_tabFormaPag(Id_formapagamento, Descr_formapagento))).
-
-sincroniza:-
-    db_sync(gc(always)).
