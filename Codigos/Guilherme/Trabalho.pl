@@ -1,7 +1,13 @@
+/* Todos os Módulos */
 :- use_module(library(http/thread_httpd)).
 :- use_module(library(http/http_dispatch)).
 :- use_module(library(http/html_write)).
 :- use_module(library(http/http_parameters)).
+:- use_module(library(http/html_head)).
+:- use_module(library(http/http_server_files)).
+:- use_module(library(http/http_client)).
+:- use_module(cadastroEmpresa,[ ]).
+:- use_module(cadastroContaBancaria,[]).
 
 servidor(Porta) :-
 http_server(http_dispatch, [port(Porta)]).
@@ -18,21 +24,14 @@ user:file_search_path(dir_css,'C:/Users/User/OneDrive/Documentos/UFU/Prolog/Trab
 user:file_search_path(dir_js,'C:/Users/User/OneDrive/Documentos/UFU/Prolog/Trabalho/js').
 
 /* Liga as rotas aos respectivos diretorios          */
-:- http_handler(css(.),
-    serve_files_in_directory(dir_css), [prefix]).
-
-:- http_handler(js(.),
-    serve_files_in_directory(dir_js), [prefix]).
+:- http_handler(css(.), serve_files_in_directory(dir_css), [prefix]).
+:- http_handler(js(.), serve_files_in_directory(dir_js), [prefix]).
 
 
-
-% Liga a rota ao tratador
-
+/* Liga a rota ao tratador                           */
 :- http_handler(root(.), home , []).
-
 :- http_handler(root(cadastroEmpresa), cadastroEmpresa , []).
 :- http_handler(root(cadastroContaBancaria), cadastroContaBancaria, []).
-
 
 
 :- multifile  user:body//2.
@@ -75,8 +74,7 @@ link_cadastrocontas(1) -->
             href('/cadastroContaBancaria')],
         'Cadastro de Contas Bancarias')).
 
-:- use_module(cadastroEmpresa,[]).
-:- use_module(cadastroContaBancaria,[]).
+
 
 retorna_home -->
     html(div(class(row),
@@ -87,6 +85,7 @@ campo(Nome,Rotulo,Tipo) -->
     html(div(class('mb-3'),
     [label([for=Nome, class('form-label')],Rotulo),
         input([name=Nome,type=Tipo,class('form-control'),id=Nome])])).
+
 
 cadastroEmpresa(_Pedido) :-
 reply_html_page(
@@ -158,6 +157,8 @@ recebe_formulario_empresas(post,Pedido) :-
             \retorna_home
         ]).
 
+
+
 cadastroContaBancaria(_Pedido) :-
     reply_html_page(
             bootstrap,
@@ -174,3 +175,27 @@ cadastroContaBancaria(_Pedido) :-
 
                     p(button([class('btn btn-primary'), type(submit)],'Salvar')),
                     \retorna_home  ])]).
+
+:- http_handler('/concluidoContasBancaria', recebe_formulario_ContaBancaria(Method),
+            [ method(Method),
+                methods([post]) ]).
+
+recebe_formulario_conta_bancaria(post,Pedido) :-
+        catch(
+            http_parameters(Pedido,[idContaBancarias(IdContaBancarias,[integer]),
+                                    classificacao(Classificacao,[]), 
+                                    numeroConta(NumeroConta,[]), 
+                                    numeroAgencia(NumeroAgencia,[]),
+                                    dataSaldoinicial(DataSaldoInicial,[])]),
+
+            _E,
+            fail),
+        !,
+        cadastroContaBancaria:insere(IdContaBancarias, Classificacao,
+                                     NumeroConta, NumeroAgencia,
+                                     DataSaldoInicial),
+        reply_html_page( bootstrap,[title('Demonstracao de POST')],
+        [ p('Pedido recebido.'),
+            \retorna_home
+        ]).
+

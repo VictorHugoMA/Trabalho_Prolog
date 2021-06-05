@@ -23,10 +23,9 @@
                 email:atom,
                 nomeTitular:atom,
                 cpf:atom,
-                funcao:atom               
-                ).
+                funcao:atom).
 
-:- initialization(db_attach('tbl_cadastroEmpresa.pl', [])).
+:- initialization(db_attach('C:/Users/User/OneDrive/Documentos/UFU/Prolog/Trabalho/tbl_cadastroEmpresa.pl', [])).
 
 insere( IdEmpresas, RazaoSocial, 
         Identificacao, TipoPessoa, 
@@ -47,7 +46,7 @@ insere( IdEmpresas, RazaoSocial,
                                         Telefone, Email, 
                                         NomeTitular, Cpf,
                                         Funcao)).
-/*S
+/*
 remove(Usuario_id):-
     with_mutex(dependentes,
                retract_dependentes(Usuario_id, _Id_dependente, 

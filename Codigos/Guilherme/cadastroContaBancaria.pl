@@ -2,38 +2,28 @@
 
 :- module(
         cadastroContaBancaria,
-        [ cadastroContaBancaria/5]
+        [ cadastroContaBancaria/5, insere/5]
 ).
 
 :- use_module(library(persistency)).
 :- persistent
    cadastroContaBancaria( idContaBancarias:nonneg,
-                classificacao:atom,
-                numeroConta:nonneg,
-                numeroAgencia:nonneg,
-                dataSaldoinicial:date
-                ).
+                          classificacao:atom,
+                          numeroConta:nonneg,
+                          numeroAgencia:nonneg,
+                          dataSaldoinicial:date).
 
-:- initialization(db_attach('tbl_cadastroContaBancaria.pl', [])).
+:- initialization(db_attach('C:/Users/User/OneDrive/Documentos/UFU/Prolog/Trabalho/tbl_cadastroContaBancaria.pl', [])).
+
+insere( IdContaBancarias, Classificacao,
+        NumeroConta, NumeroAgencia,     
+        DataSaldoInicial):-
+    with_mutex(cadastroContaBancaria,
+               assert_dependentes(IdContaBancarias, Classificacao,
+                                  NumeroConta, NumeroAgencia,
+                                  DataSaldoInicial)).
+
 /*
-insere( Usuario_id, Id_dependente, 
-        Dep_nome, Dep_email, 
-        Dep_data_nascimento, Dep_sexo,
-        Dep_cpf, Dep_endereco, 
-        Usu_cep, Dep_bairro, 
-        Dep_cidade, Id_estado, 
-        Dep_telefone, Dep_login, 
-        Dep_senha, Dep_primeiro_acesso):-
-    with_mutex(dependentes,
-               assert_dependentes(Usuario_id, Id_dependente, 
-                                    Dep_nome, Dep_email, 
-                                    Dep_data_nascimento, Dep_sexo,
-                                    Dep_cpf, Dep_endereco, 
-                                    Usu_cep, Dep_bairro, 
-                                    Dep_cidade, Id_estado, 
-                                    Dep_telefone, Dep_login, 
-                                    Dep_senha, Dep_primeiro_acesso)).
-
 remove(Usuario_id):-
     with_mutex(dependentes,
                retract_dependentes(Usuario_id, _Id_dependente, 
