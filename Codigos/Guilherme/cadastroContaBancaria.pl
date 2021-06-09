@@ -11,7 +11,7 @@
                           classificacao:atom,
                           numeroConta:nonneg,
                           numeroAgencia:nonneg,
-                          dataSaldoinicial:date).
+                          dataSaldoinicial:atom).
 
 :- initialization(db_attach('C:/Users/User/OneDrive/Documentos/UFU/Prolog/Trabalho/tbl_cadastroContaBancaria.pl', [])).
 
@@ -19,7 +19,7 @@ insere( IdContaBancarias, Classificacao,
         NumeroConta, NumeroAgencia,     
         DataSaldoInicial):-
     with_mutex(cadastroContaBancaria,
-               assert_dependentes(IdContaBancarias, Classificacao,
+               assert_cadastroContaBancaria(IdContaBancarias, Classificacao,
                                   NumeroConta, NumeroAgencia,
                                   DataSaldoInicial)).
 

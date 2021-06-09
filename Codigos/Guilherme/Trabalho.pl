@@ -6,7 +6,7 @@
 :- use_module(library(http/html_head)).
 :- use_module(library(http/http_server_files)).
 :- use_module(library(http/http_client)).
-:- use_module(cadastroEmpresa,[ ]).
+:- use_module(cadastroEmpresa,[]).
 :- use_module(cadastroContaBancaria,[]).
 
 servidor(Porta) :-
@@ -30,7 +30,7 @@ user:file_search_path(dir_js,'C:/Users/User/OneDrive/Documentos/UFU/Prolog/Traba
 
 /* Liga a rota ao tratador                           */
 :- http_handler(root(.), home , []).
-:- http_handler(root(cadastroEmpresa), cadastroEmpresa , []).
+:- http_handler(root(cadastroEmpresa), cadastroEmpresa, []).
 :- http_handler(root(cadastroContaBancaria), cadastroContaBancaria, []).
 
 
@@ -87,17 +87,18 @@ campo(Nome,Rotulo,Tipo) -->
         input([name=Nome,type=Tipo,class('form-control'),id=Nome])])).
 
 
-cadastroEmpresa(_Pedido) :-
-reply_html_page(
+
+cadastroEmpresa(_Pedido):-
+    reply_html_page(
             bootstrap,
             [ title('Cadastro Empresa')],
-              form([ class(container),action='/concluidoEmpresas', method='POST'],
+              form([ class(container),action='/concluidoEmpresa', method='POST'],
                 [ \html_requires(css('estilo.css')),
                     h2(class("my-5 text-center"),
                         'Principal - Empresa'),
                     \campo(idEmpresas,'Identificacao Empresa:',number),
                     \campo(razaoSocial,'Razao Social:',text),
-                    \campo(identiicacao,'Identificacao:',text),
+                    \campo(identificacao,'Identificacao:',text),
                     \campo(tipoPessoa,'Tipo pessoa:',text),
                     \campo(cnpj,'CNPJ',atom),
                     \campo(inscricaoEstadual,'Inscricao Estadual:',text),
@@ -112,58 +113,52 @@ reply_html_page(
                     \campo(nomeTitular,'Nome',text),
                     \campo(cpf,'CPF',atom),
                     \campo(funcao,'Funcao',text),
+          
 
                     p(button([class('btn btn-primary'), type(submit)],'Cadastrar')),
                     \retorna_home  ])).
 
-:- http_handler('/concluidoEmpresas', recebe_formulario_empresas(Method),
+
+:- http_handler('/concluidoEmpresa', recebe_formulario_empresa(Method),
             [ method(Method),
                 methods([post]) ]).
 
-recebe_formulario_empresas(post,Pedido) :-
-        catch(
-            http_parameters(Pedido,[idEmpresas(IdEmpresas,[integer]),
-                                    razaoSocial(RazaoSocial,[]), 
-                                    indentificacao(Identificacao,[]), 
-                                    tipoPessoa(TipoPessoa,[]), 
-                                    cnpj(Cnpj,[]),
-                                    inscricaoEstadual(InscricaoEstadual,[]), 
-                                    inscricaoMunicipal(InscricaoMunicipal,[]), 
-                                    endereco(Endereco,[]), 
-                                    bairro(Bairro,[]),
-                                    municipio(Municipio,[]), 
-                                    cep(Cep,[]), 
-                                    uf(Uf,[]), 
-                                    telefone(Telefone,[]),
-                                    email(Email,[]), 
-                                    nomeTitular(NomeTitular,[]), 
-                                    cpf(Cpf,[]), 
-                                    funcao(Funcao,[])]),
 
+recebe_formulario_empresa(post,Pedido) :-
+        catch(
+            http_parameters(Pedido,[idEmpresas(IdEmpresas, [integer]), razaoSocial(RazaoSocial, []), identificacao(Identificacao, []), 
+                                    tipoPessoa(TipoPessoa, []), cnpj(Cnpj, []),
+                                    inscricaoEstadual(InscricaoEstadual, []), inscricaoMunicipal(InscricaoMunicipal, []), endereco(Endereco, []), 
+                                    bairro(Bairro, []), municipio(Municipio, []), cep(Cep, []),
+                                    uf(Uf, []), telefone(Telefone, []), email(Email, []),
+                                    nomeTitular(NomeTitular, []), cpf(Cpf, []), funcao(Funcao, [])]),
             _E,
             fail),
         !,
-        cadastroEmpresa:insere(IdEmpresas, RazaoSocial, 
-                                Identificacao, TipoPessoa, 
-                                Cnpj, InscricaoEstadual,
-                                InscricaoMunicipal, Endereco, 
-                                Bairro, Municipio, 
-                                Cep, Uf, 
-                                Telefone, Email, 
-                                NomeTitular, Cpf,
-                                Funcao),
-        reply_html_page( bootstrap,[title('Demonstracao de POST')],
-        [ p('Pedido recebido.'),
-            \retorna_home
-        ]).
+        cadastroEmpresa:insere( IdEmpresas, RazaoSocial, 
+                            Identificacao, TipoPessoa, 
+                            Cnpj, InscricaoEstadual,
+                            InscricaoMunicipal, Endereco, 
+                            Bairro, Municipio, 
+                            Cep, Uf, 
+                            Telefone, Email, 
+                            NomeTitular, Cpf,
+                            Funcao),
+        reply_html_page(
+            bootstrap,
+            [ title('Pedido')],
+            [ div(class(container),
+                [ h1('Pedido Recebido'),
+                    \retorna_home
+                ])
+            ]).
 
 
-
-cadastroContaBancaria(_Pedido) :-
+cadastroContaBancaria(_Pedido):-
     reply_html_page(
             bootstrap,
             [ title('Cadastro de Contas Bancarias')],
-            [ div(class(container),
+              form([ class(container),action='/concluidoContasBancaria', method='POST'],
                 [ \html_requires(css('estilo.css')),
                     h2(class("my-5 text-center"),
                         'Conta Bancaria'),
@@ -172,11 +167,12 @@ cadastroContaBancaria(_Pedido) :-
                     \campo(numeroConta,'Numero da Conta',number),
                     \campo(numeroAgencia,'Numero da Agencia',number),
                     \campo(dataSaldoinicial,'Data Incial:',date),
+          
 
-                    p(button([class('btn btn-primary'), type(submit)],'Salvar')),
-                    \retorna_home  ])]).
+                    p(button([class('btn btn-primary'), type(submit)],'Cadastrar')),
+                    \retorna_home  ])).
 
-:- http_handler('/concluidoContasBancaria', recebe_formulario_ContaBancaria(Method),
+:- http_handler('/concluidoContasBancaria', recebe_formulario_conta_bancaria(Method),
             [ method(Method),
                 methods([post]) ]).
 
@@ -184,8 +180,8 @@ recebe_formulario_conta_bancaria(post,Pedido) :-
         catch(
             http_parameters(Pedido,[idContaBancarias(IdContaBancarias,[integer]),
                                     classificacao(Classificacao,[]), 
-                                    numeroConta(NumeroConta,[]), 
-                                    numeroAgencia(NumeroAgencia,[]),
+                                    numeroConta(NumeroConta,[integer]), 
+                                    numeroAgencia(NumeroAgencia,[integer]),
                                     dataSaldoinicial(DataSaldoInicial,[])]),
 
             _E,
@@ -198,4 +194,3 @@ recebe_formulario_conta_bancaria(post,Pedido) :-
         [ p('Pedido recebido.'),
             \retorna_home
         ]).
-
