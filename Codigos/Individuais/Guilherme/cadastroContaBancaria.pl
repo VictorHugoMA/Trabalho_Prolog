@@ -25,15 +25,10 @@ insere( IdContaBancarias, Classificacao,
 
 /*
 remove(Usuario_id):-
-    with_mutex(dependentes,
-               retract_dependentes(Usuario_id, _Id_dependente, 
-                                    _Dep_nome, _Dep_email, 
-                                    _Dep_data_nascimento, _Dep_sexo,
-                                    _Dep_cpf, _Dep_endereco, 
-                                    _Usu_cep, _Dep_bairro, 
-                                    _Dep_cidade, _Id_estado, 
-                                    _Dep_telefone, _Dep_login, 
-                                    _Dep_senha, _Dep_primeiro_acesso)).
+    with_mutex(cadastroContaBancaria,
+               retract_cadastroContaBancaria(IdContaBancarias, Classificacao,
+                                  NumeroConta, NumeroAgencia,
+                                  DataSaldoInicial)).
 
 atualiza(Usuario_id, Id_dependente, 
         Dep_nome, _Dep_email, 

@@ -29,9 +29,11 @@ http_server(http_dispatch, [port(Porta)]).
 Alterar diretorio para cada um 
 
 
-*/
 user:file_search_path(dir_css, 'C:/Trabalho_Prolog/Trabalho_Prolog/Codigos/Geral/css').
 user:file_search_path(dir_js, 'C:/Trabalho_Prolog/Trabalho_Prolog/Codigos/Geral/js').
+*/
+user:file_search_path(dir_css,'C:/Users/User/OneDrive/Documentos/UFU/Prolog/Repositorio github/Trabalho_Prolog/Codigos/Geral/css').
+user:file_search_path(dir_js,'C:/Users/User/OneDrive/Documentos/UFU/Prolog/Repositorio github/Trabalho_Prolog/Codigos/Geral/js').
 
 
 /* Liga as rotas aos respectivos diretórios */
