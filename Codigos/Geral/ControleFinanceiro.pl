@@ -8,7 +8,9 @@
 :- use_module(library(http/http_client)).
 :- use_module(tesouraria,[]). 
 :- use_module(formapagamento,[]).
-:-use_module(chave, []).
+:- use_module(usuarios,[]).
+:- use_module(clientes,[]).
+:- use_module(chave, []).
 
 servidor(Porta) :-
 http_server(http_dispatch, [port(Porta)]).
@@ -17,12 +19,14 @@ http_server(http_dispatch, [port(Porta)]).
 :- http_handler(root(.), home , []).
 :- http_handler(root(tesouraria), tesouraria , []).
 :- http_handler(root(formapagamento), formapagamento , []).
+:- http_handler(root(usuarios), usuarios , []).
+:- http_handler(root(clientes), clientes , []).
 
 /* Localização dos diretórios no sistema de arquivos */
 :- multifile user:file_search_path/2.
 
-user:file_search_path(dir_css, 'C:/UFU_repositorio/ProLog/Trabalho/css').
-user:file_search_path(dir_js, 'C:/UFU_repositorio/ProLog/Trabalho/js').
+user:file_search_path(dir_css, 'C:/Trabalho_Prolog/Trabalho_Prolog/Codigos/Geral/css').
+user:file_search_path(dir_js, 'C:/Trabalho_Prolog/Trabalho_Prolog/Codigos/Geral/js').
 
 /* Liga as rotas aos respectivos diretórios */
 :-http_handler(css(.), serve_files_in_directory(dir_css), [prefix]).
@@ -53,10 +57,22 @@ home(_Pedido) :-
     [ div(class(container),
         [ h1('Sistema de Informacao para Controle Financeiro de uma Microempresa'),
             nav(class(['nav', 'flex-column']),
-                [ \link_tesouraria(1),
-                  \link_formapagamento(1)])
+                [   \link_usuario(1),
+                    \link_cliente(1),
+                    \link_tesouraria(1),
+                    \link_formapagamento(1)])
                 ])
     ]).
+
+link_usuario(1) -->
+    html(a([ class(['nav-link']),
+            href('/usuarios')],
+        'Cadastro Usuario')).
+
+link_cliente(1) -->
+    html(a([ class(['nav-link']),
+            href('/clientes')],
+        'Cadastro Cliente')).
 
 link_tesouraria(1) -->
     html(a([ class(['nav-link']),
@@ -66,6 +82,125 @@ link_formapagamento(1) -->
     html(a([ class(['nav-link']),
         href('/formapagamento')],
         'Forma de Pagamento')).
+
+usuarios(_Pedido):-
+    reply_html_page(
+            bootstrap,
+            [ title('Cadastro Usuario')],
+              form([ class(container),action='/receptor1', method='POST'],
+                [ \html_requires(css('estilo.css')),
+                    h2(class("my-5 text-center"),
+                        'Insira os dados para cadastro'),
+                    \campo(idusuarios,'Id de Usuario:',nonneg),
+                    \campo(usuario,'Usuario:',textarea),
+                    \campo(nome,'Nome:',textarea),
+                    \campo(senha,'Senha:',textarea),
+                    \campo(confirmaSenha,'Corfirmar Senha:',textarea),
+          
+
+                    p(button([class('btn btn-primary'), type(submit)],'Cadastrar')),
+                    \retorna_home  ])).
+
+
+:- http_handler('/receptor1', recebe_formulario_usuarios(Method),
+            [ method(Method),
+                methods([post]) ]).
+                
+
+
+recebe_formulario_usuarios(post,Pedido) :-
+        catch(
+            http_parameters(Pedido,[idusuarios(Iduser,[integer]),
+                                    usuario(Usuario,[]), 
+                                    nome(Nome,[]), 
+                                    senha(Senha,[]), 
+                                    confirmaSenha(Confirmasenha,[])]),
+            _E,
+            fail),
+        !,
+        usuarios:insere(Iduser,Usuario,Nome,Senha,Confirmasenha),
+        reply_html_page(
+            bootstrap,
+            [ title('Cadastro Realizado')],
+            [ div(class(container),
+                [ h1('Pedido Recebido.'),
+                    \retorna_home
+                        ])
+            ]).
+
+clientes(_Pedido) :-
+    reply_html_page(
+            bootstrap,
+            [ title('Cadastro Cliente')],
+              form([ class(container),action='/receptor2', method='POST'],
+                [ \html_requires(css('estilo.css')),
+                    h2(class("my-5 text-center"),
+                        'Insira os dados para cadastro'),
+                    \campo(idClientes,'Id do Cliente:',number),
+                    \campo(razaoSocial,'Razao Social:',text),
+                    \campo(identificacao,'Identificacao:',text),
+                    \campo(classificacao,'Classificacao:',text),
+                    \campo(tipoPessoa,'Tipo Pessoa(Fisica/Juridica):',text),
+                    \campo(cnpjCpf,'Cnpj/CPF:',text),
+                    \campo(inscricaoEstadual,'Inscricao Estadual:',text),
+                    \campo(inscricaoMunicipal,'Inscricao Municipal:',text),
+                    \campo(endereco,'Endereco:',text),
+                    \campo(bairro,'Bairro:',text),
+                    \campo(municipio,'Municipio:',text),
+                    \campo(cep,'CEP:',text),
+                    \campo(uf,'Sigla Estado:',text),
+                    \campo(telefone,'Telefone:',text),
+                    \campo(email,'E-mail:',text),
+                    \campo(nomeTitular,'Titular:',text),
+                    \campo(cpf,'CPF do Titular:',text),
+                    \campo(funcao,'Funcao:',text),
+          
+
+                    p(button([class('btn btn-primary'), type(submit)],'Cadastrar')),
+                    \retorna_home  ])).
+
+:- http_handler('/receptor2', recebe_formulario_clientes(Method),
+            [ method(Method),
+                methods([post]) ]).
+
+recebe_formulario_clientes(post, Pedido) :-
+        catch(
+            http_parameters(Pedido,[idClientes(IdClientes,[integer]),
+                                    razaoSocial(RazaoSocial,[]), 
+                                    identificacao(Identificacao,[]), 
+                                    classificacao(Classificacao,[]), 
+                                    tipoPessoa(TipoPessoa,[]),
+                                    cnpjCpf(CnpjCpf,[]),
+                                    inscricaoEstadual(InscricaoEstadual,[]),
+                                    inscricaoMunicipal(InscricaoMunicipal,[]),
+                                    endereco(Endereco,[]),
+                                    bairro(Bairro,[]),
+                                    municipio(Municipio,[]),
+                                    cep(Cep,[]),
+                                    uf(Uf,[]),                                
+                                    telefone(Telefone,[]),                                  
+                                    email(Email,[]),                                  
+                                    nomeTitular(NomeTitular,[]),                                  
+                                    cpf(Cpf,[]),                                  
+                                    funcao(Funcao,[])                                  
+                                    
+                                    ]),
+            _E,
+            fail),
+        !,
+        clientes:insere(IdClientes,RazaoSocial,Identificacao,Classificacao,
+                        TipoPessoa,CnpjCpf,InscricaoEstadual,
+                        InscricaoMunicipal,Endereco,Bairro,Municipio,Cep,Uf,
+                        Telefone,Email,NomeTitular,Cpf,Funcao),
+        reply_html_page(
+            bootstrap,
+            [ title('Cadastro Realizado')],
+            [ div(class(container),
+                [ h1('Pedido Recebido.'),
+                    \retorna_home
+                        ])
+            ]).
+
 
 tesouraria(_Pedido):-
     reply_html_page(
