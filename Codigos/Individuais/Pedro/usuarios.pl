@@ -1,5 +1,3 @@
-/*Tabela usuario com chaves*/
-
 :- module(
        usuarios,
        [ usuarios/5,
