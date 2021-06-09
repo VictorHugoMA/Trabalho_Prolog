@@ -25,8 +25,14 @@ http_server(http_dispatch, [port(Porta)]).
 /* Localização dos diretórios no sistema de arquivos */
 :- multifile user:file_search_path/2.
 
+/*
+Alterar diretorio para cada um 
+
+
+*/
 user:file_search_path(dir_css, 'C:/Trabalho_Prolog/Trabalho_Prolog/Codigos/Geral/css').
 user:file_search_path(dir_js, 'C:/Trabalho_Prolog/Trabalho_Prolog/Codigos/Geral/js').
+
 
 /* Liga as rotas aos respectivos diretórios */
 :-http_handler(css(.), serve_files_in_directory(dir_css), [prefix]).
