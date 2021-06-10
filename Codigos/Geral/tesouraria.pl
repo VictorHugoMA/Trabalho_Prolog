@@ -29,15 +29,20 @@ insere(  Id_tesouraria, Id_empresa, Id_cliente, Id_planoContas, Id_fornecedores,
                assert_tabTesouraria(Id_tesouraria, Id_empresa, Id_cliente, Id_planoContas, Id_fornecedores,
                                     Formapagamento_tes, Valor_tes, Numero_tes, Data_emissao_tes,
                                     Data_venc_tes, Data_disp_tes)).
-/*
-remove(Id_formapagamento):-
-    with_mutex(tabFormaPag,
-               retract_tabFormaPag(Id_formapagamento,_)).
 
-atualiza(Id_formapagamento, Descr_formapagento):-
-    with_mutex(tabFormaPag,
-               (  retractall_tabFormaPag(Id_formapagamento,_),
-                  assert_tabFormaPag(Id_formapagamento, Descr_formapagento))).
-*/
+remove(Id_tesouraria):-
+    with_mutex(tabTesouraria,
+               retract_tabTesouraria(Id_tesouraria,_, _, _, _, _, _, _, _, _, _)).
+
+atualiza(Id_tesouraria, Id_empresa, Id_cliente, Id_planoContas, Id_fornecedores,
+         Formapagamento_tes, Valor_tes, Numero_tes, Data_emissao_tes,
+         Data_venc_tes, Data_disp_tes):-
+    with_mutex(tabTesouraria,
+               (  retractall_tabTesouraria(Id_tesouraria,_, _, _, _, _, _, _, _, _, _),
+               
+                  assert_tabTesouraria( Id_tesouraria, Id_empresa, Id_cliente, Id_planoContas, Id_fornecedores,
+                                        Formapagamento_tes, Valor_tes, Numero_tes, Data_emissao_tes,
+                                        Data_venc_tes, Data_disp_tes))).
+
 
 
