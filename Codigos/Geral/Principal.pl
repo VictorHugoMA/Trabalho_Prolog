@@ -11,6 +11,8 @@
 :- use_module(usuarios,[]).
 :- use_module(clientes,[]).
 :- use_module(chave, []).
+:- use_module(cadastroContaBancaria,[]).
+:- use_module(cadastroEmpresa,[]).
 
 servidor(Porta) :-
 http_server(http_dispatch, [port(Porta)]).
@@ -21,6 +23,8 @@ http_server(http_dispatch, [port(Porta)]).
 :- http_handler(root(formapagamento), formapagamento , []).
 :- http_handler(root(usuarios), usuarios , []).
 :- http_handler(root(clientes), clientes , []).
+:- http_handler(root(cadastroContaBancaria), cadastroContaBancaria , []).
+:- http_handler(root(cadastroEmpresa) , cadastroEmpresa , []).
 
 /* Localização dos diretórios no sistema de arquivos */
 :- multifile user:file_search_path/2.
@@ -69,7 +73,10 @@ home(_Pedido) :-
                 [   \link_usuario(1),
                     \link_cliente(1),
                     \link_tesouraria(1),
-                    \link_formapagamento(1)])
+                    \link_formapagamento(1)
+                    \link_empresas(1),
+                    \link_cadastrocontas(1)
+                    ])
                 ])
     ]).
 
@@ -92,6 +99,16 @@ link_formapagamento(1) -->
     html(a([ class(['nav-link']),
         href('/formapagamento')],
         'Forma de Pagamento')).
+
+link_empresas(1) -->
+    html(a([class(['nav-link']),
+            href('/cadastroEmpresa')],
+        'Cadastro de Empresas')).
+
+link_cadastrocontas(1) -->
+    html(a([class(['nav-link']),
+            href('/cadastroContaBancaria')],
+        'Cadastro de Contas Bancarias')).
 
 
 
@@ -183,6 +200,83 @@ formapagamento(_Pedido):-
                     p(button([class('btn btn-primary'), type(submit)],'Cadastrar')),
                     \retorna_home  ])).
 
+cadastroEmpresa(_Pedido):-
+    reply_html_page(
+            bootstrap,
+            [ title('Cadastro Empresa')],
+              form([ class(container),action='/concluidoEmpresa', method='POST'],
+                [ \html_requires(css('estilo.css')),
+                    h2(class("my-5 text-center"),
+                        'Principal - Empresa'),
+                    \campo(idEmpresas,'Identificacao Empresa:',number),
+                    \campo(razaoSocial,'Razao Social:',text),
+                    \campo(identificacao,'Identificacao:',text),
+                    \campo(tipoPessoa,'Tipo pessoa:',text),
+                    \campo(cnpj,'CNPJ',atom),
+                    \campo(inscricaoEstadual,'Inscricao Estadual:',text),
+                    \campo(incricaoMunicipal,'inscricao Municipal:',text),
+                    \campo(endereco,'Endereco:',text),
+                    \campo(bairro,'Bairro:',text),
+                    \campo(municipio,'Municipio:',text),
+                    \campo(cep,'CEP:',atom),
+                    \campo(uf,'Uf',text),
+                    \campo(telefone,'telefone:',atom),
+                    \campo(email,'E-mail:',text),
+                    \campo(nomeTitular,'Nome',text),
+                    \campo(cpf,'CPF',atom),
+                    \campo(funcao,'Funcao',text),
+          
+
+                    p(button([class('btn btn-primary'), type(submit)],'Cadastrar')),
+                    \retorna_home  ])).
+
+cadastroContaBancaria(_Pedido):-
+    reply_html_page(
+            bootstrap,
+            [ title('Cadastro de Contas Bancarias')],
+              form([ class(container),action='/concluidoContasBancaria', method='POST'],
+                [ \html_requires(css('estilo.css')),
+                    h2(class("my-5 text-center"),
+                        'Conta Bancaria'),
+                    \campo(idContaBancarias,'Classificacao',number),
+                    \campo(classificacao,'Descricao',text),
+                    \campo(numeroConta,'Numero da Conta',number),
+                    \campo(numeroAgencia,'Numero da Agencia',number),
+                    \campo(dataSaldoinicial,'Data Incial:',date),
+          
+
+                    p(button([class('btn btn-primary'), type(submit)],'Cadastrar')),
+                    \retorna_home  ])).
+
+cadastroEmpresa(_Pedido):-
+    reply_html_page(
+            bootstrap,
+            [ title('Cadastro Empresa')],
+              form([ class(container),action='/concluidoEmpresa', method='POST'],
+                [ \html_requires(css('estilo.css')),
+                    h2(class("my-5 text-center"),
+                        'Principal - Empresa'),
+                    \campo(idEmpresas,'Identificacao Empresa:',number),
+                    \campo(razaoSocial,'Razao Social:',text),
+                    \campo(identificacao,'Identificacao:',text),
+                    \campo(tipoPessoa,'Tipo pessoa:',text),
+                    \campo(cnpj,'CNPJ',atom),
+                    \campo(inscricaoEstadual,'Inscricao Estadual:',text),
+                    \campo(incricaoMunicipal,'inscricao Municipal:',text),
+                    \campo(endereco,'Endereco:',text),
+                    \campo(bairro,'Bairro:',text),
+                    \campo(municipio,'Municipio:',text),
+                    \campo(cep,'CEP:',atom),
+                    \campo(uf,'Uf',text),
+                    \campo(telefone,'telefone:',atom),
+                    \campo(email,'E-mail:',text),
+                    \campo(nomeTitular,'Nome',text),
+                    \campo(cpf,'CPF',atom),
+                    \campo(funcao,'Funcao',text),
+          
+
+                    p(button([class('btn btn-primary'), type(submit)],'Cadastrar')),
+                    \retorna_home  ])).
 
 recebe_formulario_usuarios(post,Pedido) :-
         catch(
@@ -283,6 +377,66 @@ recebe_FormaPag(post,Pedido) :-
             ]).
 
 
+recebe_formulario_conta_bancaria(post,Pedido) :-
+        catch(
+            http_parameters(Pedido,[idContaBancarias(IdContaBancarias,[integer]),
+                                    classificacao(Classificacao,[]), 
+                                    numeroConta(NumeroConta,[integer]), 
+                                    numeroAgencia(NumeroAgencia,[integer]),
+                                    dataSaldoinicial(DataSaldoInicial,[])]),
+
+            _E,
+            fail),
+        !,
+        cadastroContaBancaria:insere(IdContaBancarias, Classificacao,
+                                     NumeroConta, NumeroAgencia,
+                                     DataSaldoInicial),
+        reply_html_page( bootstrap,[title('Pedido')],
+        [ p('Pedido recebido.'),
+            \retorna_home
+        ]).
+
+
+recebe_formulario_empresa(post,Pedido) :-
+        catch(
+            http_parameters(Pedido,[idEmpresas(IdEmpresas,[integer]),
+                                    razaoSocial(RazaoSocial,[]),
+                                    identificacao(Identificacao,[]), 
+                                    tipoPessoa(TipoPessoa,[]),
+                                    cnpj(Cnpj,[]),
+                                    inscricaoEstadual(InscricaoEstadual,[]),
+                                    inscricaoMunicipal(InscricaoMunicipal,[]),
+                                    endereco(Endereco,[]), 
+                                    bairro(Bairro,[]),
+                                    municipio(Municipio,[]),
+                                    cep(Cep,[]),
+                                    uf(Uf,[]),
+                                    telefone(Telefone,[]),
+                                    email(Email,[]),
+                                    nomeTitular(NomeTitular,[]),
+                                    cpf(Cpf,[]),
+                                    funcao(Funcao,[])]),
+            _E,
+            fail),
+        !,
+        cadastroEmpresa:insere( IdEmpresas, RazaoSocial, 
+                                Identificacao, TipoPessoa, 
+                                Cnpj, InscricaoEstadual,
+                                InscricaoMunicipal, Endereco, 
+                                Bairro, Municipio, 
+                                Cep, Uf, 
+                                Telefone, Email, 
+                                NomeTitular, Cpf,
+                                Funcao),
+        reply_html_page(
+            bootstrap,
+            [ title('Pedido')],
+            [ div(class(container),
+                [ h1('Pedido Recebido'),
+                    \retorna_home
+                ])
+            ]).
+
 
 :- http_handler('/receptor1', recebe_formulario_usuarios(Method),
             [ method(Method),
@@ -297,6 +451,14 @@ recebe_FormaPag(post,Pedido) :-
                 methods([post]) ]).
 
 :- http_handler('/receptorFor', recebe_FormaPag(Method),
+            [ method(Method),
+                methods([post]) ]).
+
+:- http_handler('/concluidoContasBancaria', recebe_formulario_conta_bancaria(Method),
+            [ method(Method),
+                methods([post]) ]).
+
+:- http_handler('/concluidoEmpresa', recebe_formulario_empresa(Method),
             [ method(Method),
                 methods([post]) ]).
 
