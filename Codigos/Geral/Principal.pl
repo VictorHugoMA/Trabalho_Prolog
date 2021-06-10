@@ -73,7 +73,7 @@ home(_Pedido) :-
                 [   \link_usuario(1),
                     \link_cliente(1),
                     \link_tesouraria(1),
-                    \link_formapagamento(1)
+                    \link_formapagamento(1),
                     \link_empresas(1),
                     \link_cadastrocontas(1)
                     ])
@@ -248,35 +248,6 @@ cadastroContaBancaria(_Pedido):-
                     p(button([class('btn btn-primary'), type(submit)],'Cadastrar')),
                     \retorna_home  ])).
 
-cadastroEmpresa(_Pedido):-
-    reply_html_page(
-            bootstrap,
-            [ title('Cadastro Empresa')],
-              form([ class(container),action='/concluidoEmpresa', method='POST'],
-                [ \html_requires(css('estilo.css')),
-                    h2(class("my-5 text-center"),
-                        'Principal - Empresa'),
-                    \campo(idEmpresas,'Identificacao Empresa:',number),
-                    \campo(razaoSocial,'Razao Social:',text),
-                    \campo(identificacao,'Identificacao:',text),
-                    \campo(tipoPessoa,'Tipo pessoa:',text),
-                    \campo(cnpj,'CNPJ',atom),
-                    \campo(inscricaoEstadual,'Inscricao Estadual:',text),
-                    \campo(incricaoMunicipal,'inscricao Municipal:',text),
-                    \campo(endereco,'Endereco:',text),
-                    \campo(bairro,'Bairro:',text),
-                    \campo(municipio,'Municipio:',text),
-                    \campo(cep,'CEP:',atom),
-                    \campo(uf,'Uf',text),
-                    \campo(telefone,'telefone:',atom),
-                    \campo(email,'E-mail:',text),
-                    \campo(nomeTitular,'Nome',text),
-                    \campo(cpf,'CPF',atom),
-                    \campo(funcao,'Funcao',text),
-          
-
-                    p(button([class('btn btn-primary'), type(submit)],'Cadastrar')),
-                    \retorna_home  ])).
 
 recebe_formulario_usuarios(post,Pedido) :-
         catch(
