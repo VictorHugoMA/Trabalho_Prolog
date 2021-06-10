@@ -88,10 +88,13 @@ link_tesouraria(1) -->
     html(a([ class(['nav-link']),
         href('/tesouraria')],
         'Tesouraria')).
+
 link_formapagamento(1) -->
     html(a([ class(['nav-link']),
         href('/formapagamento')],
         'Forma de Pagamento')).
+
+
 
 usuarios(_Pedido):-
     reply_html_page(
@@ -110,33 +113,6 @@ usuarios(_Pedido):-
 
                     p(button([class('btn btn-primary'), type(submit)],'Cadastrar')),
                     \retorna_home  ])).
-
-
-:- http_handler('/receptor1', recebe_formulario_usuarios(Method),
-            [ method(Method),
-                methods([post]) ]).
-                
-
-
-recebe_formulario_usuarios(post,Pedido) :-
-        catch(
-            http_parameters(Pedido,[idusuarios(Iduser,[integer]),
-                                    usuario(Usuario,[]), 
-                                    nome(Nome,[]), 
-                                    senha(Senha,[]), 
-                                    confirmaSenha(Confirmasenha,[])]),
-            _E,
-            fail),
-        !,
-        usuarios:insere(Iduser,Usuario,Nome,Senha,Confirmasenha),
-        reply_html_page(
-            bootstrap,
-            [ title('Cadastro Realizado')],
-            [ div(class(container),
-                [ h1('Pedido Recebido.'),
-                    \retorna_home
-                        ])
-            ]).
 
 clientes(_Pedido) :-
     reply_html_page(
@@ -168,48 +144,6 @@ clientes(_Pedido) :-
 
                     p(button([class('btn btn-primary'), type(submit)],'Cadastrar')),
                     \retorna_home  ])).
-
-:- http_handler('/receptor2', recebe_formulario_clientes(Method),
-            [ method(Method),
-                methods([post]) ]).
-
-recebe_formulario_clientes(post, Pedido) :-
-        catch(
-            http_parameters(Pedido,[idClientes(IdClientes,[integer]),
-                                    razaoSocial(RazaoSocial,[]), 
-                                    identificacao(Identificacao,[]), 
-                                    classificacao(Classificacao,[]), 
-                                    tipoPessoa(TipoPessoa,[]),
-                                    cnpjCpf(CnpjCpf,[]),
-                                    inscricaoEstadual(InscricaoEstadual,[]),
-                                    inscricaoMunicipal(InscricaoMunicipal,[]),
-                                    endereco(Endereco,[]),
-                                    bairro(Bairro,[]),
-                                    municipio(Municipio,[]),
-                                    cep(Cep,[]),
-                                    uf(Uf,[]),                                
-                                    telefone(Telefone,[]),                                  
-                                    email(Email,[]),                                  
-                                    nomeTitular(NomeTitular,[]),                                  
-                                    cpf(Cpf,[]),                                  
-                                    funcao(Funcao,[])                                  
-                                    
-                                    ]),
-            _E,
-            fail),
-        !,
-        clientes:insere(IdClientes,RazaoSocial,Identificacao,Classificacao,
-                        TipoPessoa,CnpjCpf,InscricaoEstadual,
-                        InscricaoMunicipal,Endereco,Bairro,Municipio,Cep,Uf,
-                        Telefone,Email,NomeTitular,Cpf,Funcao),
-        reply_html_page(
-            bootstrap,
-            [ title('Cadastro Realizado')],
-            [ div(class(container),
-                [ h1('Pedido Recebido.'),
-                    \retorna_home
-                        ])
-            ]).
 
 
 tesouraria(_Pedido):-
@@ -250,23 +184,66 @@ formapagamento(_Pedido):-
                     p(button([class('btn btn-primary'), type(submit)],'Cadastrar')),
                     \retorna_home  ])).
 
-retorna_home -->
-    html(div(class(row),
-        a([ class(['btn', 'btn-primary']), href('/')],
-            'Voltar para o inicio'))).
 
-campo(Nome, Rotulo, Tipo) -->
-    html(div(class('mb-3'),
-        [   label([for(Nome), class('form-label')], Rotulo),
-            input([type(Tipo), class('form-control'),
-                id(Nome), name(Nome)])
-        ]
-        )).
+recebe_formulario_usuarios(post,Pedido) :-
+        catch(
+            http_parameters(Pedido,[idusuarios(Iduser,[integer]),
+                                    usuario(Usuario,[]), 
+                                    nome(Nome,[]), 
+                                    senha(Senha,[]), 
+                                    confirmaSenha(Confirmasenha,[])]),
+            _E,
+            fail),
+        !,
+        usuarios:insere(Iduser,Usuario,Nome,Senha,Confirmasenha),
+        reply_html_page(
+            bootstrap,
+            [ title('Cadastro Realizado')],
+            [ div(class(container),
+                [ h1('Pedido Recebido.'),
+                    \retorna_home
+                        ])
+            ]).
 
 
-:- http_handler('/receptorTes', recebe_Tes(Method),
-            [ method(Method),
-                methods([post]) ]).
+recebe_formulario_clientes(post, Pedido) :-
+        catch(
+            http_parameters(Pedido,[idClientes(IdClientes,[integer]),
+                                    razaoSocial(RazaoSocial,[]), 
+                                    identificacao(Identificacao,[]), 
+                                    classificacao(Classificacao,[]), 
+                                    tipoPessoa(TipoPessoa,[]),
+                                    cnpjCpf(CnpjCpf,[]),
+                                    inscricaoEstadual(InscricaoEstadual,[]),
+                                    inscricaoMunicipal(InscricaoMunicipal,[]),
+                                    endereco(Endereco,[]),
+                                    bairro(Bairro,[]),
+                                    municipio(Municipio,[]),
+                                    cep(Cep,[]),
+                                    uf(Uf,[]),                                
+                                    telefone(Telefone,[]),                                  
+                                    email(Email,[]),                                  
+                                    nomeTitular(NomeTitular,[]),                                  
+                                    cpf(Cpf,[]),                                  
+                                    funcao(Funcao,[])                                  
+                                    
+                                    ]),
+            _E,
+            fail),
+        !,
+        clientes:insere(IdClientes,RazaoSocial,Identificacao,Classificacao,
+                        TipoPessoa,CnpjCpf,InscricaoEstadual,
+                        InscricaoMunicipal,Endereco,Bairro,Municipio,Cep,Uf,
+                        Telefone,Email,NomeTitular,Cpf,Funcao),
+        reply_html_page(
+            bootstrap,
+            [ title('Cadastro Realizado')],
+            [ div(class(container),
+                [ h1('Pedido Recebido.'),
+                    \retorna_home
+                        ])
+            ]).
+
 
 recebe_Tes(post,Pedido) :-
         catch(
@@ -290,11 +267,6 @@ recebe_Tes(post,Pedido) :-
             ]).
 
 
-
-:- http_handler('/receptorFor', recebe_FormaPag(Method),
-            [ method(Method),
-                methods([post]) ]).
-
 recebe_FormaPag(post,Pedido) :-
         catch(
             http_parameters(Pedido,[descr_formapagento(Descr_formapagento,[])]),
@@ -312,6 +284,36 @@ recebe_FormaPag(post,Pedido) :-
             ]).
 
 
+
+:- http_handler('/receptor1', recebe_formulario_usuarios(Method),
+            [ method(Method),
+                methods([post]) ]).
+
+:- http_handler('/receptor2', recebe_formulario_clientes(Method),
+            [ method(Method),
+                methods([post]) ]).
+
+:- http_handler('/receptorTes', recebe_Tes(Method),
+            [ method(Method),
+                methods([post]) ]).
+
+:- http_handler('/receptorFor', recebe_FormaPag(Method),
+            [ method(Method),
+                methods([post]) ]).
+
+
+retorna_home -->
+    html(div(class(row),
+        a([ class(['btn', 'btn-primary']), href('/')],
+            'Voltar para o inicio'))).
+
+campo(Nome, Rotulo, Tipo) -->
+    html(div(class('mb-3'),
+        [   label([for(Nome), class('form-label')], Rotulo),
+            input([type(Tipo), class('form-control'),
+                id(Nome), name(Nome)])
+        ]
+        )).
 /*
 recebe_formulario2(post, Pedido) :-
     http_read_data(Pedido, Dados, []),
