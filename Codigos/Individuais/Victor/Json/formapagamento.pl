@@ -59,12 +59,12 @@ formapagamento(delete, AtomId, _Pedido):-
     tabFormaPag:remove(Id),
     throw(http_reply(no_content)).
 
-/* Se algo ocorrer de errado, a resposta de método não
+/* Se algo ocorrer de errado, a resposta de metodo não
    permitido será retornada.
  */
 
-formapagamento(Método, Id, _Pedido) :-
-    throw(http_reply(method_not_allowed(Método, Id))).
+formapagamento(Metodo, Id, _Pedido) :-
+    throw(http_reply(method_not_allowed(Metodo, Id))).
 
 
 insere_tupla( _{ descr_formapagento: Descr_formapagento}):-

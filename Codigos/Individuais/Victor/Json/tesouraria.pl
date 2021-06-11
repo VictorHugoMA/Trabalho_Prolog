@@ -59,12 +59,12 @@ tesouraria(delete, AtomId, _Pedido):-
     tabTesouraria:remove(Id),
     throw(http_reply(no_content)).
 
-/* Se algo ocorrer de errado, a resposta de método não
+/* Se algo ocorrer de errado, a resposta de metodo não
    permitido será retornada.
  */
 
-tesouraria(Método, Id, _Pedido) :-
-    throw(http_reply(method_not_allowed(Método, Id))).
+tesouraria(Metodo, Id, _Pedido) :-
+    throw(http_reply(method_not_allowed(Metodo, Id))).
 
 
 insere_tupla( _{    id_empresa: Id_empresa, id_cliente: Id_cliente,
