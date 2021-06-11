@@ -25,7 +25,11 @@
                 cpf:atom,
                 funcao:atom).
 
-:- initialization(db_attach('tbl_cadastroEmpresa.pl', [])).
+:- initialization( ( db_attach('C:/Users/User/OneDrive/Documentos/UFU/Prolog/Trabalho/tbl_cadastroEmpresa.pl', []),
+                     at_halt(db_sync(gc(always))) )).
+
+carrega_tab(ArqTabela):-
+    db_attach(ArqTabela, []).
 
 insere( IdEmpresas, RazaoSocial, 
         Identificacao, TipoPessoa, 
@@ -36,6 +40,7 @@ insere( IdEmpresas, RazaoSocial,
         Telefone, Email, 
         NomeTitular, Cpf,
         Funcao):-
+    chave:pk(cadastroEmpresa , IdEmpresas),
     with_mutex(cadastroEmpresa,
                 assert_cadastroEmpresa(IdEmpresas, RazaoSocial, 
                                         Identificacao, TipoPessoa, 
@@ -46,43 +51,32 @@ insere( IdEmpresas, RazaoSocial,
                                         Telefone, Email, 
                                         NomeTitular, Cpf,
                                         Funcao)).
-/*
-remove(Usuario_id):-
-    with_mutex(dependentes,
-               retract_dependentes(Usuario_id, _Id_dependente, 
-                                    _Dep_nome, _Dep_email, 
-                                    _Dep_data_nascimento, _Dep_sexo,
-                                    _Dep_cpf, _Dep_endereco, 
-                                    _Usu_cep, _Dep_bairro, 
-                                    _Dep_cidade, _Id_estado, 
-                                    _Dep_telefone, _Dep_login, 
-                                    _Dep_senha, _Dep_primeiro_acesso)).
 
-atualiza(Usuario_id, Id_dependente, 
-        Dep_nome, _Dep_email, 
-        Dep_data_nascimento, Dep_sexo,
-        Dep_cpf, Dep_endereco, 
-        Usu_cep, Dep_bairro, 
-        Dep_cidade, Id_estado, 
-        Dep_telefone, Dep_login, 
-        Dep_senha, Dep_primeiro_acesso):-
-    with_mutex(dependentes,
-               ( retractall_dependentes(Usuario_id, _Id_dependente, 
-                                        _Dep_nome, _Dep_email, 
-                                        _Dep_data_nascimento, _Dep_sexo,
-                                        _Dep_cpf, _Dep_endereco, 
-                                        _Usu_cep, _Dep_bairro, 
-                                        _Dep_cidade, _Id_estado, 
-                                        _Dep_telefone, _Dep_login, 
-                                        _Dep_senha, _Dep_primeiro_acesso),
-                 assert_dependentes(Usuario_id, Id_dependente, 
-                                    Dep_nome, Dep_email, 
-                                    Dep_data_nascimento, Dep_sexo,
-                                    Dep_cpf, Dep_endereco, 
-                                    Usu_cep, Dep_bairro, 
-                                    Dep_cidade, Id_estado, 
-                                    Dep_telefone, Dep_login, 
-                                    Dep_senha, Dep_primeiro_acesso)) ).
-*/
+remove(IdEmpresas):-
+    with_mutex(cadastroEmpresa,
+               retract_cadastroEmpresa(IdEmpresas, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _)).
+
+atualiza(IdEmpresas, RazaoSocial, 
+        Identificacao, TipoPessoa, 
+        Cnpj, InscricaoEstadual,
+        InscricaoMunicipal, Endereco, 
+        Bairro, Municipio, 
+        Cep, Uf, 
+        Telefone, Email, 
+        NomeTitular, Cpf,
+        Funcao):-
+    with_mutex(cadastroEmpresa,
+               ( retractall_cadastroEmpresa(IdEmpresas, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _),
+               
+                 assert_cadastroEmpresa(IdEmpresas, RazaoSocial, 
+                                        Identificacao, TipoPessoa, 
+                                        Cnpj, InscricaoEstadual,
+                                        InscricaoMunicipal, Endereco, 
+                                        Bairro, Municipio, 
+                                        Cep, Uf, 
+                                        Telefone, Email, 
+                                        NomeTitular, Cpf,
+                                        Funcao))).
+
 sincroniza :-
     db_sync(gc(always)).

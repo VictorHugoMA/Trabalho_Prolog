@@ -70,7 +70,7 @@ home(_Pedido) :-
             [ h1('SISTEMAS DE INFORMACAO PARA CONTROLE FINANCEIRO DE UMA MICROEMPRESA VIA WEB'),
                 nav(class(['nav','flex-column']),
                     [ \link_usuario(1),
-                        \link_cliente(1) ])
+                        \link_cliente(1), ])
                 ])
         ]).
 
