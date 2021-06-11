@@ -70,8 +70,7 @@ formapagamento(Método, Id, _Pedido) :-
 insere_tupla( _{ descr_formapagento: Descr_formapagento}):-
     % Validar URL antes de inserir
     tabFormaPag:insere(Id, Descr_formapagento)
-    -> envia_tupla(Id)
-    ;  throw(http_reply(bad_request('URL ausente'))).
+    -> envia_tupla(Id).
 
 atualiza_tupla( _{ descr_formapagento: Descr_formapagento}, Id):-
        tabFormaPag:atualiza(Id, Descr_formapagento)
