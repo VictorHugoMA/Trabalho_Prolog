@@ -28,6 +28,9 @@
 :- initialization( ( db_attach('C:/Users/User/OneDrive/Documentos/UFU/Prolog/Trabalho/tbl_cadastroEmpresa.pl', []),
                      at_halt(db_sync(gc(always))) )).
 
+carrega_tab(ArqTabela):-
+    db_attach(ArqTabela, []).
+
 insere( IdEmpresas, RazaoSocial, 
         Identificacao, TipoPessoa, 
         Cnpj, InscricaoEstadual,
