@@ -16,14 +16,14 @@ usuarios(get, '', _Pedido):- !,
     envia_tabela.
 
 /*
-   GET api/v1/usuarios/Id
-   Retorna o `usuarios` com Id 1 ou erro 404 caso o `usuarios` não
+   GET api/v1/usuarios/Iduser
+   Retorna o `usuarios` com Iduser 1 ou erro 404 caso o `usuarios` não
    seja encontrado.
 */
 usuarios(get, AtomId, _Pedido):-
-    atom_number(AtomId, Id),
+    atom_number(AtomId, Iduser),
     !,
-    envia_tupla(Id).
+    envia_tupla(Iduser).
 
 /*
    POST api/v1/usuarios
@@ -39,32 +39,32 @@ usuarios(post, _, Pedido):-
     insere_tupla(Dados).
 
 /*
-  PUT api/v1/usuarios/Id
-  Atualiza o usuarios com o Id informado.
+  PUT api/v1/usuarios/Iduser
+  Atualiza o usuarios com o Iduser informado.
   Os dados são passados no corpo do pedido no formato JSON.
 */
 usuarios(put, AtomId, Pedido):-
-    atom_number(AtomId, Id),
+    atom_number(AtomId, Iduser),
     http_read_json_dict(Pedido, Dados),
     !,
-    atualiza_tupla(Dados, Id).
+    atualiza_tupla(Dados, Iduser).
 
 /*
-   DELETE api/v1/usuarios/Id
-   Apaga o usuarios com o Id informado
+   DELETE api/v1/usuarios/Iduser
+   Apaga o usuarios com o Iduser informado
 */
 usuarios(delete, AtomId, _Pedido):-
-    atom_number(AtomId, Id),
+    atom_number(AtomId, Iduser),
     !,
-    usuarios:remove(Id),
+    usuarios:remove(Iduser),
     throw(http_reply(no_content)).
 
 /* Se algo ocorrer de errado, a resposta de metodo não
    permitido será retornada.
  */
 
-usuarios(Metodo, Id, _Pedido) :-
-    throw(http_reply(method_not_allowed(Metodo, Id))).
+usuarios(Metodo, Iduser, _Pedido) :-
+    throw(http_reply(method_not_allowed(Metodo, Iduser))).
 
 
 insere_tupla( _{ user:User,nome:Nome,senha:Senha,confirmasenha:Confirmasenha}):-

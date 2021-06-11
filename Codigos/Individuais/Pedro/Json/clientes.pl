@@ -39,32 +39,32 @@ clientes(post, _, Pedido):-
     insere_tupla(Dados).
 
 /*
-  PUT api/v1/clientes/Id
-  Atualiza o clientes com o Id informado.
+  PUT api/v1/clientes/IdClientes
+  Atualiza o clientes com o IdClientes informado.
   Os dados são passados no corpo do pedido no formato JSON.
 */
 clientes(put, AtomId, Pedido):-
-    atom_number(AtomId, Id),
+    atom_number(AtomId, IdClientes),
     http_read_json_dict(Pedido, Dados),
     !,
-    atualiza_tupla(Dados, Id).
+    atualiza_tupla(Dados, IdClientes).
 
 /*
-   DELETE api/v1/clientes/Id
-   Apaga o clientes com o Id informado
+   DELETE api/v1/clientes/IdClientes
+   Apaga o clientes com o IdClientes informado
 */
 clientes(delete, AtomId, _Pedido):-
-    atom_number(AtomId, Id),
+    atom_number(AtomId, IdClientes),
     !,
-    tabFormaPag:remove(Id),
+    tabFormaPag:remove(IdClientes),
     throw(http_reply(no_content)).
 
 /* Se algo ocorrer de errado, a resposta de metodo não
    permitido será retornada.
  */
 
-clientes(Metodo, Id, _Pedido) :-
-    throw(http_reply(method_not_allowed(Metodo, Id))).
+clientes(Metodo, IdClientes, _Pedido) :-
+    throw(http_reply(method_not_allowed(Metodo, IdClientes))).
 
 insere_tupla( _{ razaoSocial:RazaoSocial,identificacao:Identificacao,classificacao:Classificacao,tipoPessoa:TipoPessoa,cnpjCpf:CnpjCpf,inscricaoEstadual:InscricaoEstadual,
          inscricaoMunicipal:InscricaoMunicipal,endereco:Endereco,bairro:Bairro,municipio:Municipio,cep:Cep,uf:Uf,telefone:Telefone,email:Email,nomeTitular:NomeTitular,cpf:Cpf,funcao:Funcao}):-
