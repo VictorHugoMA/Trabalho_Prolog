@@ -208,7 +208,6 @@ cadastroEmpresa(_Pedido):-
                 [ \html_requires(css('estilo.css')),
                     h2(class("my-5 text-center"),
                         'Principal - Empresa'),
-                    \campo(idEmpresas,'Identificacao Empresa:',number),
                     \campo(razaoSocial,'Razao Social:',text),
                     \campo(identificacao,'Identificacao:',text),
                     \campo(tipoPessoa,'Tipo pessoa:',text),
@@ -238,7 +237,6 @@ cadastroContaBancaria(_Pedido):-
                 [ \html_requires(css('estilo.css')),
                     h2(class("my-5 text-center"),
                         'Conta Bancaria'),
-                    \campo(idContaBancarias,'Classificacao',number),
                     \campo(classificacao,'Descricao',text),
                     \campo(numeroConta,'Numero da Conta',number),
                     \campo(numeroAgencia,'Numero da Agencia',number),
@@ -350,8 +348,7 @@ recebe_FormaPag(post,Pedido) :-
 
 recebe_formulario_conta_bancaria(post,Pedido) :-
         catch(
-            http_parameters(Pedido,[idContaBancarias(IdContaBancarias,[integer]),
-                                    classificacao(Classificacao,[]), 
+            http_parameters(Pedido,[classificacao(Classificacao,[]), 
                                     numeroConta(NumeroConta,[integer]), 
                                     numeroAgencia(NumeroAgencia,[integer]),
                                     dataSaldoinicial(DataSaldoInicial,[])]),
@@ -359,7 +356,7 @@ recebe_formulario_conta_bancaria(post,Pedido) :-
             _E,
             fail),
         !,
-        cadastroContaBancaria:insere(IdContaBancarias, Classificacao,
+        cadastroContaBancaria:insere(_, Classificacao,
                                      NumeroConta, NumeroAgencia,
                                      DataSaldoInicial),
         reply_html_page( bootstrap,[title('Pedido')],
@@ -370,8 +367,7 @@ recebe_formulario_conta_bancaria(post,Pedido) :-
 
 recebe_formulario_empresa(post,Pedido) :-
         catch(
-            http_parameters(Pedido,[idEmpresas(IdEmpresas,[integer]),
-                                    razaoSocial(RazaoSocial,[]),
+            http_parameters(Pedido,[razaoSocial(RazaoSocial,[]),
                                     identificacao(Identificacao,[]), 
                                     tipoPessoa(TipoPessoa,[]),
                                     cnpj(Cnpj,[]),
@@ -390,7 +386,7 @@ recebe_formulario_empresa(post,Pedido) :-
             _E,
             fail),
         !,
-        cadastroEmpresa:insere( IdEmpresas, RazaoSocial, 
+        cadastroEmpresa:insere( _, RazaoSocial, 
                                 Identificacao, TipoPessoa, 
                                 Cnpj, InscricaoEstadual,
                                 InscricaoMunicipal, Endereco, 

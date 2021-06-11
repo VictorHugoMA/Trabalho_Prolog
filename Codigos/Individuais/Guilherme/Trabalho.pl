@@ -8,6 +8,7 @@
 :- use_module(library(http/http_client)).
 :- use_module(cadastroEmpresa,[]).
 :- use_module(cadastroContaBancaria,[]).
+:- use_module(chave,[]).
 
 servidor(Porta) :-
 http_server(http_dispatch, [port(Porta)]).
@@ -96,7 +97,6 @@ cadastroEmpresa(_Pedido):-
                 [ \html_requires(css('estilo.css')),
                     h2(class("my-5 text-center"),
                         'Principal - Empresa'),
-                    \campo(idEmpresas,'Identificacao Empresa:',number),
                     \campo(razaoSocial,'Razao Social:',text),
                     \campo(identificacao,'Identificacao:',text),
                     \campo(tipoPessoa,'Tipo pessoa:',text),
@@ -126,7 +126,7 @@ cadastroEmpresa(_Pedido):-
 
 recebe_formulario_empresa(post,Pedido) :-
         catch(
-            http_parameters(Pedido,[idEmpresas(IdEmpresas, [integer]), razaoSocial(RazaoSocial, []), identificacao(Identificacao, []), 
+            http_parameters(Pedido,[razaoSocial(RazaoSocial, []), identificacao(Identificacao, []), 
                                     tipoPessoa(TipoPessoa, []), cnpj(Cnpj, []),
                                     inscricaoEstadual(InscricaoEstadual, []), inscricaoMunicipal(InscricaoMunicipal, []), endereco(Endereco, []), 
                                     bairro(Bairro, []), municipio(Municipio, []), cep(Cep, []),
@@ -135,7 +135,7 @@ recebe_formulario_empresa(post,Pedido) :-
             _E,
             fail),
         !,
-        cadastroEmpresa:insere( IdEmpresas, RazaoSocial, 
+        cadastroEmpresa:insere( _, RazaoSocial, 
                             Identificacao, TipoPessoa, 
                             Cnpj, InscricaoEstadual,
                             InscricaoMunicipal, Endereco, 
@@ -162,7 +162,6 @@ cadastroContaBancaria(_Pedido):-
                 [ \html_requires(css('estilo.css')),
                     h2(class("my-5 text-center"),
                         'Conta Bancaria'),
-                    \campo(idContaBancarias,'Classificacao',number),
                     \campo(classificacao,'Descricao',text),
                     \campo(numeroConta,'Numero da Conta',number),
                     \campo(numeroAgencia,'Numero da Agencia',number),
@@ -178,8 +177,7 @@ cadastroContaBancaria(_Pedido):-
 
 recebe_formulario_conta_bancaria(post,Pedido) :-
         catch(
-            http_parameters(Pedido,[idContaBancarias(IdContaBancarias,[integer]),
-                                    classificacao(Classificacao,[]), 
+            http_parameters(Pedido,[classificacao(Classificacao,[]), 
                                     numeroConta(NumeroConta,[integer]), 
                                     numeroAgencia(NumeroAgencia,[integer]),
                                     dataSaldoinicial(DataSaldoInicial,[])]),
@@ -187,7 +185,7 @@ recebe_formulario_conta_bancaria(post,Pedido) :-
             _E,
             fail),
         !,
-        cadastroContaBancaria:insere(IdContaBancarias, Classificacao,
+        cadastroContaBancaria:insere( _, Classificacao,
                                      NumeroConta, NumeroAgencia,
                                      DataSaldoInicial),
         reply_html_page( bootstrap,[title('Demonstracao de POST')],
