@@ -93,7 +93,7 @@ envia_tupla(IdClientes):-
 envia_tabela :-
     findall( _{idClientes:IdClientes,razaoSocial:RazaoSocial,identificacao:Identificacao,classificacao:Classificacao,tipoPessoa:TipoPessoa,cnpjCpf:CnpjCpf,inscricaoEstadual:InscricaoEstadual,
          inscricaoMunicipal:InscricaoMunicipal,endereco:Endereco,bairro:Bairro,municipio:Municipio,cep:Cep,uf:Uf,telefone:Telefone,email:Email,nomeTitular:NomeTitular,cpf:Cpf,funcao:Funcao},
-             tabFormaPag:tabFormaPag(IdClientes,RazaoSocial,Identificacao,Classificacao,TipoPessoa,CnpjCpf,InscricaoEstadual,
+             clientes:clientes(IdClientes,RazaoSocial,Identificacao,Classificacao,TipoPessoa,CnpjCpf,InscricaoEstadual,
          InscricaoMunicipal,Endereco,Bairro,Municipio,Cep,Uf,Telefone,Email,NomeTitular,Cpf,Funcao),
              Tuplas ),
     reply_json_dict(Tuplas).
