@@ -8,6 +8,8 @@ tabela(usuarios).
 tabela(clientes).
 tabela(cadastroContaBancaria).
 tabela(cadastroEmpresa).
+tabela(tesouraria).
+tabela(formapagamento).
 
 
 % Não mexa daqui em diante
