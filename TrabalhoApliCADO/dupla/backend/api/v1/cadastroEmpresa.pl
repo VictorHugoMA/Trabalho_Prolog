@@ -10,31 +10,24 @@
 
 /*
    GET api/v1/cadastroEmpresa
-/
-   Retorna uma lista com todos os cadastroEmpresa
-.
+   Retorna uma lista com todos os cadastroEmpresa.
 */
 cadastroEmpresa(get, '', _Pedido):- !,
     envia_tabela.
 
 /*
-   GET api/v1/cadastroEmpresa
-/Id
-   Retorna o 'cadastroEmpresa
-' com Id 1 ou erro 404 caso o 'cadastroEmpresa
-' não
+   GET api/v1/cadastroContaBancaria/Id
+   Retorna o 'cadastroContaBancaria' com Id 1 ou erro 404 caso o 'cadastroContaBancaria' não
    seja encontrado.
 */
 cadastroEmpresa(get, AtomId, _Pedido):-
-    atom_number(AtomId, IdContaBancarias),
+    atom_number(AtomId, IdEmpresas),
     !,
-    envia_tupla(IdContaBancarias).
+    envia_tupla(IdEmpresas).
 
 /*
-   POST api/v1/cadastroEmpresa
-
-   Adiciona um novo cadastroEmpresa
-. Os dados deverão ser passados no corpo da
+   POST api/v1/cadastroContaBancaria
+   Adiciona um novo cadastroContaBancaria. Os dados deverão ser passados no corpo da
    requisição no formato JSON.
 
    Um erro 400 (BAD REQUEST) deve ser retornado caso a URL não tenha sido
@@ -46,74 +39,115 @@ cadastroEmpresa(post, _, Pedido):-
     insere_tupla(Dados).
 
 /*
-  PUT api/v1/cadastroEmpresa
-/Id
-  Atualiza o cadastroEmpresa
- com o Id informado.
+  PUT api/v1/cadastroContaBancaria/Id
+  Atualiza o cadastroContaBancaria com o Id informado.
   Os dados são passados no corpo do pedido no formato JSON.
 */
 cadastroEmpresa(put, AtomId, Pedido):-
-    atom_number(AtomId, IdContaBancarias),
+    atom_number(AtomId, IdEmpresas),
     http_read_json_dict(Pedido, Dados),
     !,
-    atualiza_tupla(Dados, IdContaBancarias).
+    atualiza_tupla(Dados, IdEmpresas).
 
 /*
-   DELETE api/v1/cadastroEmpresa
-/Id
-   Apaga o cadastroEmpresa
- com o Id informado
+   DELETE api/v1/cadastroContaBancaria/Id
+   Apaga o cadastroContaBancaria com o Id informado
 */
 cadastroEmpresa(delete, AtomId, _Pedido):-
-    atom_number(AtomId, IdContaBancarias),
+    atom_number(AtomId, IdEmpresas),
     !,
     cadastroEmpresa
-:remove(IdContaBancarias),
+:remove(IdEmpresas),
     throw(http_reply(no_content)).
 
 /* Se algo ocorrer de errado, a resposta de metodo não
    permitido será retornada.
  */
 
-cadastroEmpresa(Metodo, IdContaBancarias, _Pedido) :-
-    throw(http_reply(method_not_allowed(Metodo, IdContaBancarias))).
+cadastroEmpresa(Metodo, IdEmpresas, _Pedido) :-
+    throw(http_reply(method_not_allowed(Metodo, IdEmpresas))).
 
 
-insere_tupla5( _{ id_contabancaria:IdContaBancarias, id_classificacao:Classificacao,
-                 id_numeroconta:NumeroConta, id_numeroagencia:NumeroAgencia,
-                 id_datasaldoinicial:DataSaldoInicial}, IdContaBancarias}):-
+insere_tupla6( _{ id_Empresas:IdEmpresas, id_razaoSocial:RazaoSocial, 
+                id_identificacao:Identificacao, id_tipoPessoa:TipoPessoa,
+                id_cnpj:Cnpj, id_inscricaoEstadual:InscricaoEstadual, 
+                id_inscricaoMunicipal:InscricaoMunicipal,
+                id_endereco:Endereco, id_bairro:Bairro, 
+                id_municipio:Municipio,id_cep:Cep, 
+                id_uf:Uf, id_telefone:Telefone,
+                id_email:Email, id_nomeTitular:NomeTitular, 
+                id_cpf:Cpf, id_funcao:Funcao}, IdEmpresas}):-
     % Validar URL antes de inserir
     cadastroEmpresa
-:insere( IdContaBancarias, Classificacao, 
-                                  NumeroConta, NumeroAgencia, DataSaldoInicial)
-    -> envia_tupla(IdContaBancarias)
+:insere( IdEmpresas, RazaoSocial, 
+        Identificacao, TipoPessoa, 
+        Cnpj, InscricaoEstadual,
+        InscricaoMunicipal, Endereco, 
+        Bairro, Municipio, 
+        Cep, Uf, 
+        Telefone, Email, 
+        NomeTitular, Cpf,
+        Funcao)
+    -> envia_tupla(IdEmpresas)
     ;  throw(http_reply(bad_request('URL ausente'))).
 
-atualiza_tupla5( _{ id_contabancaria:IdContaBancarias, id_classificacao:Classificacao,
-                   id_numeroconta:NumeroConta, id_numeroagencia:NumeroAgencia,
-                   id_datasaldoinicial:DataSaldoInicial}, IdContaBancarias)
-    -> envia_tupla(IdContaBancarias)
-    ;  throw(http_reply(not_found(IdContaBancarias))).
+atualiza_tupla6( _{ id_Empresas:IdEmpresas, id_razaoSocial:RazaoSocial, 
+                id_identificacao:Identificacao, id_tipoPessoa:TipoPessoa,
+                id_cnpj:Cnpj, id_inscricaoEstadual:InscricaoEstadual, 
+                id_inscricaoMunicipal:InscricaoMunicipal,
+                id_endereco:Endereco, id_bairro:Bairro, 
+                id_municipio:Municipio,id_cep:Cep, 
+                id_uf:Uf, id_telefone:Telefone,
+                id_email:Email, id_nomeTitular:NomeTitular, 
+                id_cpf:Cpf, id_funcao:Funcao}, IdEmpresas)
+    -> envia_tupla(IdEmpresas)
+    ;  throw(http_reply(not_found(IdEmpresas))).
 
 
-envia_tupla5(IdContaBancarias):-
+envia_tupla6(IdEmpresas):-
        cadastroEmpresa
     :cadastroEmpresa
-    (IdContaBancarias, Classificacao, 
-                                  NumeroConta, NumeroAgencia, DataSaldoInicial)
-    -> reply_json_dict( _{id_contabancaria:IdContaBancarias, id_classificacao:Classificacao,
-                          id_numeroconta:NumeroConta, id_numeroagencia:NumeroAgencia,
-                          id_datasaldoinicial:DataSaldoInicial} )
-    ;  throw(http_reply(not_found(IdContaBancarias))).
+    (IdEmpresas, RazaoSocial, 
+        Identificacao, TipoPessoa, 
+        Cnpj, InscricaoEstadual,
+        InscricaoMunicipal, Endereco, 
+        Bairro, Municipio, 
+        Cep, Uf, 
+        Telefone, Email, 
+        NomeTitular, Cpf,
+        Funcao)
+    -> reply_json_dict( _{id_Empresas:IdEmpresas, id_razaoSocial:RazaoSocial, 
+                id_identificacao:Identificacao, id_tipoPessoa:TipoPessoa,
+                id_cnpj:Cnpj, id_inscricaoEstadual:InscricaoEstadual, 
+                id_inscricaoMunicipal:InscricaoMunicipal,
+                id_endereco:Endereco, id_bairro:Bairro, 
+                id_municipio:Municipio,id_cep:Cep, 
+                id_uf:Uf, id_telefone:Telefone,
+                id_email:Email, id_nomeTitular:NomeTitular, 
+                id_cpf:Cpf, id_funcao:Funcao} )
+    ;  throw(http_reply(not_found(IdEmpresas))).
 
 
-envia_tabela5 :-
-    findall( _{id_contabancaria:IdContaBancarias, id_classificacao:Classificacao,
-                id_numeroconta:NumeroConta, id_numeroagencia:NumeroAgencia,
-                id_datasaldoinicial:DataSaldoInicial},
+envia_tabela6 :-
+    findall( _{id_Empresas:IdEmpresas, id_razaoSocial:RazaoSocial, 
+                id_identificacao:Identificacao, id_tipoPessoa:TipoPessoa,
+                id_cnpj:Cnpj, id_inscricaoEstadual:InscricaoEstadual, 
+                id_inscricaoMunicipal:InscricaoMunicipal,
+                id_endereco:Endereco, id_bairro:Bairro, 
+                id_municipio:Municipio,id_cep:Cep, 
+                id_uf:Uf, id_telefone:Telefone,
+                id_email:Email, id_nomeTitular:NomeTitular, 
+                id_cpf:Cpf, id_funcao:Funcao},
              cadastroEmpresa
             :cadastroEmpresa
-            (IdContaBancarias, Classificacao, 
-                                                         NumeroConta, NumeroAgencia, DataSaldoInicial),
-             Tuplas ),
+            (IdEmpresas, RazaoSocial, 
+            Identificacao, TipoPessoa, 
+            Cnpj, InscricaoEstadual,
+            InscricaoMunicipal, Endereco, 
+            Bairro, Municipio, 
+            Cep, Uf, 
+            Telefone, Email, 
+            NomeTitular, Cpf,
+            Funcao),
+            Tuplas ),
     reply_json_dict(Tuplas).

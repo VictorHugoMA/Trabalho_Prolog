@@ -97,6 +97,6 @@ envia_tabela5 :-
                 id_numeroconta:NumeroConta, id_numeroagencia:NumeroAgencia,
                 id_datasaldoinicial:DataSaldoInicial},
              cadastroContaBancaria:cadastroContaBancaria(IdContaBancarias, Classificacao, 
-                                                         NumeroConta, NumeroAgencia, DataSaldoInicial),
+                                            NumeroConta, NumeroAgencia, DataSaldoInicial),
              Tuplas ),
     reply_json_dict(Tuplas).
