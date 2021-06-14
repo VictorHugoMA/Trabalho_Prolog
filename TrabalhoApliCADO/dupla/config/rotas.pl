@@ -88,6 +88,6 @@ http:location(webfonts, root(webfonts), []).
 :- http_handler( api1(cadastroContaBancaria/IdContaBancarias), cadastroContaBancaria(Metodo, IdContaBancarias),
                  [ method(Metodo),
                    methods([ get, post, put, delete ]) ]).
-:- http_handler( api1(cadastroContaBancaria/IdEmpresas), cadastroContaBancaria(Metodo, IdEmpresas),
+:- http_handler( api1(cadastroEmpresa/IdEmpresas), cadastroEmpresa(Metodo, IdEmpresas),
                  [ method(Metodo),
                    methods([ get, post, put, delete ]) ]).

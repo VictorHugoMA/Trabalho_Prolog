@@ -5,7 +5,7 @@
 
 :- ensure_loaded(gabarito(boot5rest)).
 
-contabancaria(_Pedido):-
+cadastroContaBancaria(_Pedido):-
     reply_html_page(
         boot5rest,
         [ title('Cadastro Conta Bancaria')],

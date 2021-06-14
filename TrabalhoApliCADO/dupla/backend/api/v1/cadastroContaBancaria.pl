@@ -66,21 +66,33 @@ cadastroContaBancaria(delete, AtomId, _Pedido):-
 cadastroContaBancaria(Metodo, IdContaBancarias, _Pedido) :-
     throw(http_reply(method_not_allowed(Metodo, IdContaBancarias))).
 
-
 insere_tupla5( _{ id_contabancaria:IdContaBancarias, id_classificacao:Classificacao,
+                 id_numeroconta:NumeroConta, id_numeroagencia:NumeroAgencia,
+                 id_datasaldoinicial:DataSaldoInicial}, IdContaBancarias):-
+    % Validar URL antes de inserir
+    cadastroContaBancaria:insere(IdContaBancarias, Classificacao, 
+                                  NumeroConta, NumeroAgencia, DataSaldoInicial)
+    -> envia_tupla(IdContaBancarias)
+    ;  throw(http_reply(bad_request('URL ausente'))).
+
+/* insere_tupla5( _{ id_contabancaria:IdContaBancarias, id_classificacao:Classificacao,
                  id_numeroconta:NumeroConta, id_numeroagencia:NumeroAgencia,
                  id_datasaldoinicial:DataSaldoInicial}, IdContaBancarias}):-
     % Validar URL antes de inserir
     cadastroContaBancaria:insere( IdContaBancarias, Classificacao, 
                                   NumeroConta, NumeroAgencia, DataSaldoInicial)
     -> envia_tupla(IdContaBancarias)
-    ;  throw(http_reply(bad_request('URL ausente'))).
+    ;  throw(http_reply(bad_request('URL ausente'))). */
+
 
 atualiza_tupla5( _{ id_contabancaria:IdContaBancarias, id_classificacao:Classificacao,
                    id_numeroconta:NumeroConta, id_numeroagencia:NumeroAgencia,
-                   id_datasaldoinicial:DataSaldoInicial}, IdContaBancarias)
+                   id_datasaldoinicial:DataSaldoInicial}, IdContaBancarias):-
+       cadastroContaBancaria:atualiza(IdContaBancarias, Classificacao, 
+                                            NumeroConta, NumeroAgencia, DataSaldoInicial)
     -> envia_tupla(IdContaBancarias)
     ;  throw(http_reply(not_found(IdContaBancarias))).
+
 
 
 envia_tupla5(IdContaBancarias):-

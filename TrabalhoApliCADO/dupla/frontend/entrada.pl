@@ -65,12 +65,12 @@ link_formapagamento(1) -->
 
 link_contabancaria(1) -->
     html(a([ class(['nav-link']),
-        href('/contabancaria')],
+        href('/cadastroContaBancaria')],
         'Cadastro Conta Bancaria')).
 
 link_empresa(1) -->
     html(a([ class(['nav-link']),
-        href('/empresa')],
+        href('/cadastroEmpresa')],
         'Cadastro Empresa')).
 
 

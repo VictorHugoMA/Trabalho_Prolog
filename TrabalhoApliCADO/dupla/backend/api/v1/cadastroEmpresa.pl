@@ -39,7 +39,7 @@ cadastroEmpresa(post, _, Pedido):-
     insere_tupla(Dados).
 
 /*
-  PUT api/v1/cadastroContaBancaria/Id
+  PUT api/v1/cadastroContaBancaria/IdEmpresas
   Atualiza o cadastroContaBancaria com o Id informado.
   Os dados são passados no corpo do pedido no formato JSON.
 */
@@ -76,18 +76,17 @@ insere_tupla6( _{ id_Empresas:IdEmpresas, id_razaoSocial:RazaoSocial,
                 id_municipio:Municipio,id_cep:Cep, 
                 id_uf:Uf, id_telefone:Telefone,
                 id_email:Email, id_nomeTitular:NomeTitular, 
-                id_cpf:Cpf, id_funcao:Funcao}, IdEmpresas}):-
+                id_cpf:Cpf, id_funcao:Funcao}):-
     % Validar URL antes de inserir
-    cadastroEmpresa
-:insere( IdEmpresas, RazaoSocial, 
-        Identificacao, TipoPessoa, 
-        Cnpj, InscricaoEstadual,
-        InscricaoMunicipal, Endereco, 
-        Bairro, Municipio, 
-        Cep, Uf, 
-        Telefone, Email, 
-        NomeTitular, Cpf,
-        Funcao)
+    cadastroEmpresa:insere(IdEmpresas, RazaoSocial, 
+                Identificacao, TipoPessoa, 
+                Cnpj, InscricaoEstadual,
+                InscricaoMunicipal, Endereco, 
+                Bairro, Municipio, 
+                Cep, Uf, 
+                Telefone, Email, 
+                NomeTitular, Cpf,
+                Funcao)
     -> envia_tupla(IdEmpresas)
     ;  throw(http_reply(bad_request('URL ausente'))).
 
@@ -99,15 +98,22 @@ atualiza_tupla6( _{ id_Empresas:IdEmpresas, id_razaoSocial:RazaoSocial,
                 id_municipio:Municipio,id_cep:Cep, 
                 id_uf:Uf, id_telefone:Telefone,
                 id_email:Email, id_nomeTitular:NomeTitular, 
-                id_cpf:Cpf, id_funcao:Funcao}, IdEmpresas)
+                id_cpf:Cpf, id_funcao:Funcao}, IdEmpresas):-
+            cadastroEmpresa:atualiza(IdEmpresas, RazaoSocial, 
+                Identificacao, TipoPessoa, 
+                Cnpj, InscricaoEstadual,
+                InscricaoMunicipal, Endereco, 
+                Bairro, Municipio, 
+                Cep, Uf, 
+                Telefone, Email, 
+                NomeTitular, Cpf,
+                Funcao)
     -> envia_tupla(IdEmpresas)
     ;  throw(http_reply(not_found(IdEmpresas))).
 
 
 envia_tupla6(IdEmpresas):-
-       cadastroEmpresa
-    :cadastroEmpresa
-    (IdEmpresas, RazaoSocial, 
+       cadastroEmpresa:cadastroEmpresa(IdEmpresas, RazaoSocial, 
         Identificacao, TipoPessoa, 
         Cnpj, InscricaoEstadual,
         InscricaoMunicipal, Endereco, 
@@ -138,9 +144,7 @@ envia_tabela6 :-
                 id_uf:Uf, id_telefone:Telefone,
                 id_email:Email, id_nomeTitular:NomeTitular, 
                 id_cpf:Cpf, id_funcao:Funcao},
-             cadastroEmpresa
-            :cadastroEmpresa
-            (IdEmpresas, RazaoSocial, 
+             cadastroEmpresa:cadastroEmpresa(IdEmpresas, RazaoSocial, 
             Identificacao, TipoPessoa, 
             Cnpj, InscricaoEstadual,
             InscricaoMunicipal, Endereco, 
