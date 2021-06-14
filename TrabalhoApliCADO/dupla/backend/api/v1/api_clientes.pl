@@ -1,3 +1,5 @@
+:-module(api_clientes,[clientes/3]).
+
 /* http_parameters   */
 :- use_module(library(http/http_parameters)).
 /* http_reply        */
@@ -66,7 +68,7 @@ clientes(delete, AtomId, _Pedido):-
 clientes(Metodo, IdClientes, _Pedido) :-
     throw(http_reply(method_not_allowed(Metodo, IdClientes))).
 
-insere_tupla2( _{ razaoSocial:RazaoSocial,identificacao:Identificacao,classificacao:Classificacao,tipoPessoa:TipoPessoa,cnpjCpf:CnpjCpf,inscricaoEstadual:InscricaoEstadual,
+insere_tupla( _{ razaoSocial:RazaoSocial,identificacao:Identificacao,classificacao:Classificacao,tipoPessoa:TipoPessoa,cnpjCpf:CnpjCpf,inscricaoEstadual:InscricaoEstadual,
          inscricaoMunicipal:InscricaoMunicipal,endereco:Endereco,bairro:Bairro,municipio:Municipio,cep:Cep,uf:Uf,telefone:Telefone,email:Email,nomeTitular:NomeTitular,cpf:Cpf,funcao:Funcao}):-
     % Validar URL antes de inserir
     clientes:insere(IdClientes,RazaoSocial,Identificacao,Classificacao,TipoPessoa,CnpjCpf,InscricaoEstadual,
@@ -74,7 +76,7 @@ insere_tupla2( _{ razaoSocial:RazaoSocial,identificacao:Identificacao,classifica
     -> envia_tupla(IdClientes)
     ;  throw(http_reply(bad_request('URL ausente'))).
 
-atualiza_tupla2( _{ razaoSocial:RazaoSocial,identificacao:Identificacao,classificacao:Classificacao,tipoPessoa:TipoPessoa,cnpjCpf:CnpjCpf,inscricaoEstadual:InscricaoEstadual,
+atualiza_tupla( _{ razaoSocial:RazaoSocial,identificacao:Identificacao,classificacao:Classificacao,tipoPessoa:TipoPessoa,cnpjCpf:CnpjCpf,inscricaoEstadual:InscricaoEstadual,
          inscricaoMunicipal:InscricaoMunicipal,endereco:Endereco,bairro:Bairro,municipio:Municipio,cep:Cep,uf:Uf,telefone:Telefone,email:Email,nomeTitular:NomeTitular,cpf:Cpf,funcao:Funcao}, IdClientes):-
        clientes:atualiza(IdClientes,RazaoSocial,Identificacao,Classificacao,TipoPessoa,CnpjCpf,InscricaoEstadual,
          InscricaoMunicipal,Endereco,Bairro,Municipio,Cep,Uf,Telefone,Email,NomeTitular,Cpf,Funcao)
@@ -82,7 +84,7 @@ atualiza_tupla2( _{ razaoSocial:RazaoSocial,identificacao:Identificacao,classifi
     ;  throw(http_reply(not_found(IdClientes))).
 
 
-envia_tupla2(IdClientes):-
+envia_tupla(IdClientes):-
        clientes:clientes(IdClientes,RazaoSocial,Identificacao,Classificacao,TipoPessoa,CnpjCpf,InscricaoEstadual,
          InscricaoMunicipal,Endereco,Bairro,Municipio,Cep,Uf,Telefone,Email,NomeTitular,Cpf,Funcao)
     -> reply_json_dict( _{idClientes:IdClientes,razaoSocial:RazaoSocial,identificacao:Identificacao,classificacao:Classificacao,tipoPessoa:TipoPessoa,cnpjCpf:CnpjCpf,inscricaoEstadual:InscricaoEstadual,
@@ -90,7 +92,7 @@ envia_tupla2(IdClientes):-
     ;  throw(http_reply(not_found(IdClientes))).
 
 
-envia_tabela2 :-
+envia_tabela :-
     findall( _{idClientes:IdClientes,razaoSocial:RazaoSocial,identificacao:Identificacao,classificacao:Classificacao,tipoPessoa:TipoPessoa,cnpjCpf:CnpjCpf,inscricaoEstadual:InscricaoEstadual,
          inscricaoMunicipal:InscricaoMunicipal,endereco:Endereco,bairro:Bairro,municipio:Municipio,cep:Cep,uf:Uf,telefone:Telefone,email:Email,nomeTitular:NomeTitular,cpf:Cpf,funcao:Funcao},
              clientes:clientes(IdClientes,RazaoSocial,Identificacao,Classificacao,TipoPessoa,CnpjCpf,InscricaoEstadual,
