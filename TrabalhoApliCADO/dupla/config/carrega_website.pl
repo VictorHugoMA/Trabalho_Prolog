@@ -36,7 +36,7 @@
                 api1(api_usuarios),
                 api1(clientes),
                 api1(tesouraria),
-                api1(formapagamento),
+                api1(api_formapagamento),
                 api1(cadastroContaBancaria),
                 api1(cadastroEmpresa) % API REST
               ],

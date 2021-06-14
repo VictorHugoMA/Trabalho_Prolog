@@ -1,3 +1,5 @@
+:-module(api_formapagamento,[formapagamento/3]).
+
 /* http_parameters   */
 :- use_module(library(http/http_parameters)).
 /* http_reply        */
@@ -67,25 +69,25 @@ formapagamento(Metodo, Id, _Pedido) :-
     throw(http_reply(method_not_allowed(Metodo, Id))).
 
 
-insere_tupla4( _{ descr_formapagento: Descr_formapagento}):-
+insere_tupla( _{ descr_formapagento: Descr_formapagento}):-
     % Validar URL antes de inserir
     tabFormaPag:insere(Id, Descr_formapagento)
     -> envia_tupla(Id)
     ;  throw(http_reply(bad_request('URL ausente'))).
 
-atualiza_tupla4( _{ descr_formapagento: Descr_formapagento}, Id):-
+atualiza_tupla( _{ descr_formapagento: Descr_formapagento}, Id):-
        tabFormaPag:atualiza(Id, Descr_formapagento)
     -> envia_tupla(Id)
     ;  throw(http_reply(not_found(Id))).
 
 
-envia_tupla4(Id):-
+envia_tupla(Id):-
        tabFormaPag:tabFormaPag(Id, Descr_formapagento)
     -> reply_json_dict( _{id:Id, descr_formapagento: Descr_formapagento} )
     ;  throw(http_reply(not_found(Id))).
 
 
-envia_tabela4 :-
+envia_tabela :-
     findall( _{id:Id, descr_formapagento: Descr_formapagento},
              tabFormaPag:tabFormaPag(Id,Descr_formapagento),
              Tuplas ),

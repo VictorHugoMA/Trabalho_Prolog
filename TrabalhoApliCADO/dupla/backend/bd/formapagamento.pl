@@ -7,7 +7,7 @@
 
 :- persistent
    tabFormaPag(id_formapagamento:nonneg,
-                descr_formapagento:atom).
+                descr_formapagento:string).
 
 :- initialization( at_halt(db_sync(gc(always))) ).
 

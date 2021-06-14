@@ -81,7 +81,7 @@ http:location(webfonts, root(webfonts), []).
 :- http_handler( api1(tesouraria/Id_tesouraria), tesouraria(Metodo, Id_tesouraria),
                  [ method(Metodo),
                    methods([ get, post, put, delete ]) ]).
-:- http_handler( api1(formapagamento/Id_formapagamento), formapagamento(Metodo, Id_formapagamento),
+:- http_handler( api1(formapagamento/Id_formapagamento), api_formapagamento:formapagamento(Metodo, Id_formapagamento),
                  [ method(Metodo),
                    methods([ get, post, put, delete ]) ]).
 %Guilherme
