@@ -53,11 +53,13 @@ http:location(webfonts, root(webfonts), []).
 %% A página de cadastro de novos bookmarks
 /* :- http_handler( root(bookmark), cadastro, []).
  */
-%%pagina do usuarios/clientes
+%%pagina de cadastro
 :- http_handler(root(usuarios), usuarios , []).
 :- http_handler(root(clientes), clientes , []).
 :- http_handler(root(tesouraria), tesouraria , []).
 :- http_handler(root(formapagamento), formapagamento , []).
+:- http_handler(root(cadastroContaBancaria), cadastroContaBancaria , []).
+:- http_handler(root(cadastroEmpresa), cadastroEmpresa , []).
 
 
 %% A página para edição de um bookmark existente
@@ -68,17 +70,24 @@ http:location(webfonts, root(webfonts), []).
 :- http_handler( api1(bookmarks/Id), bookmarks(Metodo, Id),
                  [ method(Metodo),
                    methods([ get, post, put, delete ]) ]).
-
+%Pedro
 :- http_handler( api1(usuarios/Iduser), usuarios(Metodo, Iduser),
                  [ method(Metodo),
                    methods([ get, post, put, delete ]) ]).
 :- http_handler( api1(clientes/IdClientes), clientes(Metodo, IdClientes),
                  [ method(Metodo),
                    methods([ get, post, put, delete ]) ]).
-
+%Victor
 :- http_handler( api1(tesouraria/Id_tesouraria), tesouraria(Metodo, Id_tesouraria),
                  [ method(Metodo),
                    methods([ get, post, put, delete ]) ]).
 :- http_handler( api1(formapagamento/Id_formapagamento), formapagamento(Metodo, Id_formapagamento),
+                 [ method(Metodo),
+                   methods([ get, post, put, delete ]) ]).
+%Guilherme
+:- http_handler( api1(cadastroContaBancaria/IdContaBancarias), cadastroContaBancaria(Metodo, IdContaBancarias),
+                 [ method(Metodo),
+                   methods([ get, post, put, delete ]) ]).
+:- http_handler( api1(cadastroContaBancaria/IdEmpresas), cadastroContaBancaria(Metodo, IdEmpresas),
                  [ method(Metodo),
                    methods([ get, post, put, delete ]) ]).

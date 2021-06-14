@@ -6,6 +6,8 @@ tabela(chave).
 tabela(bookmark).
 tabela(usuarios).
 tabela(clientes).
+tabela(cadastroContaBancaria).
+tabela(cadastroEmpresa).
 
 
 % Não mexa daqui em diante

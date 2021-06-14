@@ -11,6 +11,8 @@
 :- use_module(bd(clientes), []).
 :- use_module(bd(tesouraria), []).
 :- use_module(bd(formapagamento), []).
+:- use_module(bd(cadastroContaBancaria), []).
+:- use_module(bd(cadastroEmpresa), []).
 
 
 entrada(_Pedido) :-
@@ -23,7 +25,9 @@ entrada(_Pedido) :-
                     [ \link_usuario(1) ,
                         \link_cliente(1),
                         \link_tesouraria(1),
-                        \link_formapagamento(1)
+                        \link_formapagamento(1),
+                        \link_contabancaria(1),
+                        \link_empresa(1)
                           ])
                 ])
         ]).
@@ -58,6 +62,16 @@ link_formapagamento(1) -->
     html(a([ class(['nav-link']),
         href('/formapagamento')],
         'Cadastro Forma de Pagamento')).
+
+link_contabancaria(1) -->
+    html(a([ class(['nav-link']),
+        href('/contabancaria')],
+        'Cadastro Conta Bancaria')).
+
+link_empresa(1) -->
+    html(a([ class(['nav-link']),
+        href('/empresa')],
+        'Cadastro Empresa')).
 
 
 enviar_ou_cancelar(RotaDeRetorno) -->
