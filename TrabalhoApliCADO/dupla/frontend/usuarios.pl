@@ -28,16 +28,3 @@ form_usuarios -->
               ])).
 
 
-enviar_ou_cancelar(RotaDeRetorno) -->
-    html(div([ class('btn-group'), role(group), 'aria-label'('Enviar ou cancelar')],
-             [ button([ type(submit),
-                        class('btn btn-outline-primary')], 'Enviar'),
-               a([ href(RotaDeRetorno),
-                   class('ms-3 btn btn-outline-danger')], 'Cancelar')
-            ])).
-
-
-metodo_de_envio(Metodo) -->
-    html(input([type(hidden), name('_metodo'), value(Metodo)])).
-
-

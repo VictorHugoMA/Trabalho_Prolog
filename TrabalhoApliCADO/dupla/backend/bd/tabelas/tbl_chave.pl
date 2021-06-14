@@ -1,2 +1,2 @@
-created(1623682884.167873).
-assert(chave(formapagamento,2)).
+created(1623683571.919768).
+assert(chave(formapagamento,3)).
