@@ -1,3 +1,5 @@
+:-module(api_usuarios,[usuarios/3]).
+
 /* http_parameters   */
 :- use_module(library(http/http_parameters)).
 /* http_reply        */
@@ -67,25 +69,25 @@ usuarios(Metodo, Iduser, _Pedido) :-
     throw(http_reply(method_not_allowed(Metodo, Iduser))).
 
 
-insere_tupla1( _{ user:User,nome:Nome,senha:Senha,confirmasenha:Confirmasenha}):-
+insere_tupla( _{ usuario:User,nome:Nome,senha:Senha,confirmaSenha:Confirmasenha}):-
     % Validar URL antes de inserir
     usuarios:insere(Iduser,User,Nome,Senha,Confirmasenha)
     -> envia_tupla(Iduser)
     ;  throw(http_reply(bad_request('URL ausente'))).
 
-atualiza_tupla1( _{ user:User,nome:Nome,senha:Senha,confirmasenha:Confirmasenha}, Iduser):-
+atualiza_tupla( _{ user:User,nome:Nome,senha:Senha,confirmasenha:Confirmasenha}, Iduser):-
        usuarios:atualiza(Iduser,User,Nome,Senha,Confirmasenha)
     -> envia_tupla(Iduser)
     ;  throw(http_reply(not_found(Iduser))).
 
 
-envia_tupla1(Iduser):-
+envia_tupla(Iduser):-
        usuarios:usuarios(Iduser,User,Nome,Senha,Confirmasenha)
     -> reply_json_dict( _{iduser:Iduser,user:User,nome:Nome,senha:Senha,confirmasenha:Confirmasenha} )
     ;  throw(http_reply(not_found(Iduser))).
 
 
-envia_tabela1 :-
+envia_tabela :-
     findall( _{iduser:Iduser,user:User,nome:Nome,senha:Senha,confirmasenha:Confirmasenha},
              usuarios:usuarios(Iduser,User,Nome,Senha,Confirmasenha),
              Tuplas ),

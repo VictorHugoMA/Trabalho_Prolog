@@ -12,17 +12,17 @@
 
 :- persistent
    usuarios( idusuarios:nonneg,
-                    usuario:atom,
-                    nome:atom,
-                    senha:atom,
-                    confirmaSenha:atom).
+                    usuario:string,
+                    nome:string,
+                    senha:string,
+                    confirmaSenha:string).
 
 :- initialization( at_halt(db_sync(gc(always))) ).
 
 carrega_tab(ArqTabela):- db_attach(ArqTabela,[]).
 
 insere(Iduser,User,Nome,Senha,Confirmasenha):-
-    chave:pk(usuario,Iduser);
+    chave:pk(usuario,Iduser),
     with_mutex(usuarios,
                assert_usuarios(Iduser,User,Nome,Senha,Confirmasenha)).
 

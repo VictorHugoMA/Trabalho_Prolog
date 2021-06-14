@@ -71,7 +71,7 @@ http:location(webfonts, root(webfonts), []).
                  [ method(Metodo),
                    methods([ get, post, put, delete ]) ]).
 %Pedro
-:- http_handler( api1(usuarios/Iduser), usuarios(Metodo, Iduser),
+:- http_handler( api1(usuarios/Iduser), api_usuarios:usuarios(Metodo, Iduser),
                  [ method(Metodo),
                    methods([ get, post, put, delete ]) ]).
 :- http_handler( api1(clientes/IdClientes), clientes(Metodo, IdClientes),

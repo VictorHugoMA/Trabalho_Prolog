@@ -33,7 +33,7 @@
 % Carrega o backend
 
 :- load_files([ api1(bookmarks),
-                api1(usuarios),
+                api1(api_usuarios),
                 api1(clientes),
                 api1(tesouraria),
                 api1(formapagamento),
@@ -41,4 +41,5 @@
                 api1(cadastroEmpresa) % API REST
               ],
               [ silent(true),
-                if(not_loaded) ]).
+                if(not_loaded),
+                imports([]) ]).

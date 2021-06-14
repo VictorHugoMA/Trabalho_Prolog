@@ -1,1 +1,3 @@
-created(1623689873.937977).
+created(1623710538.033691).
+assert(usuarios(8,"Maria","Maria","123","123")).
+assert(usuarios(9,"Cleb","Cleber","1135","1135")).
