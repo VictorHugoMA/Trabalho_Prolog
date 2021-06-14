@@ -1,3 +1,3 @@
-created(1623710538.036691).
+created(1623710908.218128).
 assert(chave(formapagamento,3)).
 assert(chave(usuario,9)).
