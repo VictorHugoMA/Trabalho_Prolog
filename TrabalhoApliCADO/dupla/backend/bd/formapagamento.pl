@@ -4,6 +4,7 @@
    ).
 
 :- use_module(library(persistency)).
+:- use_module(chave,[]).
 
 :- persistent
    formapagamento(id_formapagamento:nonneg,
@@ -11,8 +12,7 @@
 
 :- initialization( at_halt(db_sync(gc(always))) ).
 
-carrega_tab(ArqTabela):-
-    db_attach(ArqTabela, []).
+carrega_tab(ArqTabela):- db_attach(ArqTabela,[]).
 
 
 insere(Id_formapagamento, Descr_formapagento):-
