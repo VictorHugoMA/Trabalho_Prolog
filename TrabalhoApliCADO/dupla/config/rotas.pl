@@ -4,7 +4,7 @@
 % http:location
 :- use_module(library(http/http_path)).
 
-:- ensure_loaded(caminhos).
+%:- ensure_loaded(caminhos).
 
 /***********************************
  *                                 *
