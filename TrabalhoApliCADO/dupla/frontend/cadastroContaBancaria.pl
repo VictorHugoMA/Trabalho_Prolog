@@ -20,10 +20,10 @@ form_contabancaria -->
                 onsubmit("redirecionaResposta( event, '/' )"),
                 action('/api/v1/cadastroContaBancaria/') ],
               [ \metodo_de_envio('POST'),
-                    \campo(usuario,'Usuario:',text),
-                    \campo(nome,'Nome:',text),
-                    \campo(senha,'Senha:',text),
-                    \campo(confirmaSenha,'Corfirmar Senha:',text),
+                  \campo(classificacao,'Descricao',text),
+                  \campo(numeroConta,'Numero da Conta',number),
+                  \campo(numeroAgencia,'Numero da Agencia',number),
+                  \campo(dataSaldoinicial,'Data Incial:',date),
                 \enviar_ou_cancelar('/')
               ])).
 

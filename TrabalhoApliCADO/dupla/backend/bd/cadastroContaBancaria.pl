@@ -2,10 +2,13 @@
 
 :- module(
         cadastroContaBancaria,
-        [ cadastroContaBancaria/5, insere/5]
+        [ carrega_tab/1,cadastroContaBancaria/5, insere/5, remove/1, atualiza/5]
 ).
 
+   
 :- use_module(library(persistency)).
+:- use_module(chave,[]).
+
 :- persistent
    cadastroContaBancaria( idContaBancarias:nonneg,
                           classificacao:atom,
@@ -13,11 +16,9 @@
                           numeroAgencia:nonneg,
                           dataSaldoinicial:atom).
 
-:- initialization( ( db_attach('C:/Users/User/OneDrive/Documentos/UFU/Prolog/Trabalho/tbl_cadastroContaBancaria.pl', []),
-                     at_halt(db_sync(gc(always))) )).
+:- initialization( at_halt(db_sync(gc(always))) ).
 
-carrega_tab(ArqTabela):-
-    db_attach(ArqTabela, []).
+carrega_tab(ArqTabela):- db_attach(ArqTabela,[]).
                         
 insere( IdContaBancarias, Classificacao,
         NumeroConta, NumeroAgencia,     
@@ -42,6 +43,3 @@ atualiza(IdContaBancarias, Classificacao,
                  assert_cadastroContaBancaria(IdContaBancarias, Classificacao,
                                               NumeroConta, NumeroAgencia,
                                               DataSaldoInicial))).
-
-sincroniza :-
-    db_sync(gc(always)).

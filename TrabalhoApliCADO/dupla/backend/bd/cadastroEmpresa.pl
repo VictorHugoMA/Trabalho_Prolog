@@ -2,10 +2,13 @@
 
 :- module(
         cadastroEmpresa,
-        [ cadastroEmpresa/17, insere/17]
+        [ carrega_tab/1, cadastroEmpresa/17, insere/17,remove/1,
+            atualiza/17 ]
 ).
 
 :- use_module(library(persistency)).
+:- use_module(chave,[]).
+
 :- persistent
    cadastroEmpresa( idEmpresas:nonneg,
                 razaoSocial:atom,
@@ -25,11 +28,9 @@
                 cpf:atom,
                 funcao:atom).
 
-:- initialization( ( db_attach('C:/Users/User/OneDrive/Documentos/UFU/Prolog/Trabalho/tbl_cadastroEmpresa.pl', []),
-                     at_halt(db_sync(gc(always))) )).
+:- initialization( at_halt(db_sync(gc(always))) ).
 
-carrega_tab(ArqTabela):-
-    db_attach(ArqTabela, []).
+carrega_tab(ArqTabela):- db_attach(ArqTabela,[]).
 
 insere( IdEmpresas, RazaoSocial, 
         Identificacao, TipoPessoa, 
@@ -77,6 +78,3 @@ atualiza(IdEmpresas, RazaoSocial,
                                         Telefone, Email, 
                                         NomeTitular, Cpf,
                                         Funcao))).
-
-sincroniza :-
-    db_sync(gc(always)).
