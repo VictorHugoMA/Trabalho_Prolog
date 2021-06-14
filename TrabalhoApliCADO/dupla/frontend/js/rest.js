@@ -7,10 +7,10 @@
 
 
  /**
-  *  Função que envia os dados de um formulário usando um dos métodos:
+  *  Função que envia os dados de um formulário usando um dos metodos:
   *  POST ou PUT.
-  *  Se o método não for informado em uma entrada com nome `_método`,
-  *  a função assume como default o método POST.
+  *  Se o metodo não for informado em uma entrada com nome `_metodo`,
+  *  a função assume como default o metodo POST.
   *
   * @param {SubmitEvent} evento
   * @param {CallBack} callback - função a ser chamada quando a resposta chegar
@@ -21,11 +21,11 @@ async function enviarDados(evento, callback) {
      de submeter imediatamente o formulário.                        */
   evento.preventDefault();
 
-  /* Obtém o formulário ao qual o evento está associado.            */
-  const formulário = evento.currentTarget;
+  /* Obtem o formulário ao qual o evento está associado.            */
+  const formulario = evento.currentTarget;
 
-  /* Obtém a URL da API a partir do atributo `action`.              */
-  const url = formulário.action;
+  /* Obtem a URL da API a partir do atributo `action`.              */
+  const url = formulario.action;
 
 
   try {
@@ -34,7 +34,7 @@ async function enviarDados(evento, callback) {
 
        @see https://developer.mozilla.org/en-US/docs/Web/API/FormData
     */
-    const formData = new FormData(formulário);
+    const formData = new FormData(formulario);
 
     /* Envia os dados no formato JSON para a URL informada. */
     const dadosResposta = await enviaFormDataComoJson(url, formData);
@@ -60,7 +60,7 @@ async function enviaFormDataComoJson(url, formData) {
   /* Não se pode passar uma instância de `FormData` diretamente com
      `fetch`, pois isto faria que o corpo do pedido fosse automáticamente
      formatado como "multipart" e `Content-Type` como `multipart/form-data`.
-     O que se deseja é evinar o corpo do pedido como JSON, assim esta
+     O que se deseja e evinar o corpo do pedido como JSON, assim esta
      função primeiro a converte em um objeto simples para depois converter
      esse objeto em uma string JSON.
 
@@ -70,25 +70,25 @@ async function enviaFormDataComoJson(url, formData) {
   */
   const formDataSimples = Object.fromEntries(formData.entries());
 
-  let método = 'POST';
+  let matodo = 'POST';
 
-  if (typeof formDataSimples._método !== 'undefined') {
-    método = formDataSimples._método;
-    delete formDataSimples._método;
+  if (typeof formDataSimples._metodo !== 'undefined') {
+    metodo = formDataSimples._metodo;
+    delete formDataSimples._metodo;
   };
 
 
-  console.log('método = ', método);
+  console.log('metodo = ', metodo);
 
   const stringJson = JSON.stringify(formDataSimples);
 
   console.log('json = ', stringJson);
 
-  const opçõesFetch = {
-    method: método,
+  const opcoesFetch = {
+    method: metodo,
 
     /* Estes cabeçalhos serão adicionados ao pedido e informarão
-       à API que o corpo do pedido é um JSON e que aceita-se
+       à API que o corpo do pedido e um JSON e que aceita-se
        JSON como resposta.
      */
     headers: {
@@ -96,11 +96,11 @@ async function enviaFormDataComoJson(url, formData) {
       "Accept": "application/json"
     },
 
-    /* O Corpo do pedido é a string JSON criada acima.         */
+    /* O Corpo do pedido e a string JSON criada acima.         */
     body: stringJson,
   };
 
-  const resposta = await fetch(url, opçõesFetch);
+  const resposta = await fetch(url, opcoesFetch);
 
   if (!resposta.ok) {
     const errorMessage = await resposta.text();
@@ -112,11 +112,11 @@ async function enviaFormDataComoJson(url, formData) {
 
 
 async function remover(url, callback){
-  const opçõesFetch = {
+  const opcoesFetch = {
     method: 'DELETE',
 
     /* Estes cabeçalhos serão adicionados ao pedido e informarão
-       à API que o corpo do pedido é um JSON e que aceita-se
+       à API que o corpo do pedido e um JSON e que aceita-se
        JSON como resposta.
      */
     headers: {
@@ -125,7 +125,7 @@ async function remover(url, callback){
 
   };
 
-  const resposta = await fetch(url, opçõesFetch);
+  const resposta = await fetch(url, opcoesFetch);
 
   if (!resposta.ok) {
     const errorMessage = await resposta.text();
