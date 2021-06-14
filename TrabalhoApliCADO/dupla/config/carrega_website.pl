@@ -34,7 +34,7 @@
 
 :- load_files([ api1(bookmarks),
                 api1(api_usuarios),
-                api1(clientes),
+                api1(api_clientes),
                 api1(tesouraria),
                 api1(api_formapagamento),
                 api1(cadastroContaBancaria),

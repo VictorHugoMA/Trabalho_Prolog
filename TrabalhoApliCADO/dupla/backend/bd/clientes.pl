@@ -12,23 +12,23 @@
 
 :- persistent
    clientes( idClientes:nonneg,
-                razaoSocial:atom,
-                identificacao:atom,
-                classificacao:atom,
-                tipoPessoa:atom,
-                cnpjCpf:atom,
-                inscricaoEstadual:atom,
-                inscricaoMunicipal:atom,
-                endereco:atom,
-                bairro:atom,
-                municipio:atom,
-                cep:atom,
-                uf:atom,
-                telefone:atom,
-                email:atom,
-                nomeTitular:atom,
-                cpf:atom,
-                funcao:atom               
+                razaoSocial:string,
+                identificacao:string,
+                classificacao:string,
+                tipoPessoa:string,
+                cnpjCpf:string,
+                inscricaoEstadual:string,
+                inscricaoMunicipal:string,
+                endereco:string,
+                bairro:string,
+                municipio:string,
+                cep:string,
+                uf:string,
+                telefone:string,
+                email:string,
+                nomeTitular:string,
+                cpf:string,
+                funcao:string               
                 ).
 
 :- initialization( at_halt(db_sync(gc(always))) ).

@@ -74,7 +74,7 @@ http:location(webfonts, root(webfonts), []).
 :- http_handler( api1(usuarios/Iduser), api_usuarios:usuarios(Metodo, Iduser),
                  [ method(Metodo),
                    methods([ get, post, put, delete ]) ]).
-:- http_handler( api1(clientes/IdClientes), clientes(Metodo, IdClientes),
+:- http_handler( api1(clientes/IdClientes), api_clientes:clientes(Metodo, IdClientes),
                  [ method(Metodo),
                    methods([ get, post, put, delete ]) ]).
 %Victor
