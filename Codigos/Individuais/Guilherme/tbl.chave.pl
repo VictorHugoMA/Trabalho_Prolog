@@ -1,2 +1,2 @@
-created(1623422797.000246).
+created(1623684082.701151).
 assert(chave(cadastroContaBancaria,2)).
