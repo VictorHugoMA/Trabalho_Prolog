@@ -58,7 +58,7 @@ formapagamento(put, AtomId, Pedido):-
 formapagamento(delete, AtomId, _Pedido):-
     atom_number(AtomId, Id),
     !,
-    tabFormaPag:remove(Id),
+    formapagamento:remove(Id),
     throw(http_reply(no_content)).
 
 /* Se algo ocorrer de errado, a resposta de metodo não
@@ -71,24 +71,24 @@ formapagamento(Metodo, Id, _Pedido) :-
 
 insere_tupla( _{ descr_formapagento: Descr_formapagento}):-
     % Validar URL antes de inserir
-    tabFormaPag:insere(Id, Descr_formapagento)
+    formapagamento:insere(Id, Descr_formapagento)
     -> envia_tupla(Id)
     ;  throw(http_reply(bad_request('URL ausente'))).
 
 atualiza_tupla( _{ descr_formapagento: Descr_formapagento}, Id):-
-       tabFormaPag:atualiza(Id, Descr_formapagento)
+       formapagamento:atualiza(Id, Descr_formapagento)
     -> envia_tupla(Id)
     ;  throw(http_reply(not_found(Id))).
 
 
 envia_tupla(Id):-
-       tabFormaPag:tabFormaPag(Id, Descr_formapagento)
+       formapagamento:formapagamento(Id, Descr_formapagento)
     -> reply_json_dict( _{id:Id, descr_formapagento: Descr_formapagento} )
     ;  throw(http_reply(not_found(Id))).
 
 
 envia_tabela :-
     findall( _{id:Id, descr_formapagento: Descr_formapagento},
-             tabFormaPag:tabFormaPag(Id,Descr_formapagento),
+             formapagamento:formapagamento(Id,Descr_formapagento),
              Tuplas ),
     reply_json_dict(Tuplas).
