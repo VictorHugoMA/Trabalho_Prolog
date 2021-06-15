@@ -1,7 +1,7 @@
  /*Tabela responsável pelo armazenamento dos dados dos plano das Contas.*/
 :- module(
        planodeContas,
-       [ planodeContas/11, insere/11, remove/1, atualiza/11]).
+       [ carrega_tab/1, planodeContas/11, insere/11, remove/1, atualiza/11]).
 
 :- use_module(library(persistency)).
 :- use_module(chave,[]).
@@ -27,7 +27,6 @@ insere( Id_planodeContas, Id_ContasBancarias,
         Classificacao, TipoConta, Descricao,
         Caixa, Banco, Cliente, Fornecedor,
         EntradaRecurso, SaidaRecurso):-
-    
     chave:pk(planodeContas, Id_planodeContas),
     with_mutex(planodeContas,
                assert_planodeContas(Id_planodeContas, Id_ContasBancarias,

@@ -60,6 +60,7 @@ http:location(webfonts, root(webfonts), []).
 :- http_handler(root(formapagamento), formapagamento , []).
 :- http_handler(root(contabancaria), contabancaria , []).
 :- http_handler(root(empresa), empresa , []).
+:- http_handler(root(planodeContas), planodeContas , []).
 
 
 %% A página para edição de um bookmark existente
@@ -84,8 +85,6 @@ http:location(webfonts, root(webfonts), []).
 :- http_handler( api1(formapagamento/Idformapagamento), api_formapagamento:formapagamento(Metodo, Idformapagamento),
                  [ method(Metodo),
                    methods([ get, post, put, delete ]) ]).
-
-
 %Guilherme
 :- http_handler( api1(contabancaria/IdContaBancarias), api_contabancaria:contabancaria(Metodo, IdContaBancarias),
                  [ method(Metodo),
@@ -94,3 +93,11 @@ http:location(webfonts, root(webfonts), []).
 :- http_handler( api1(empresa/IdEmpresa), api_empresa:empresa(Metodo, IdEmpresa),
                  [ method(Metodo),
                    methods([ get, post, put, delete ]) ]).
+%Henrique
+:- http_handler( api1(planodeContas/IdContaBancarias), api_planodeContas:planodeContas(Metodo, IdContaBancarias),
+                 [ method(Metodo),
+                   methods([ get, post, put, delete ]) ]).
+/* 
+:- http_handler( api1(empresa/IdEmpresa), api_empresa:empresa(Metodo, IdEmpresa),
+                 [ method(Metodo),
+                   methods([ get, post, put, delete ]) ]). */

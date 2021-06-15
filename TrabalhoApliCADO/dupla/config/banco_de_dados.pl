@@ -10,6 +10,8 @@ tabela(contabancaria).
 tabela(empresa). 
 tabela(tesouraria).
 tabela(formapagamento).
+tabela(planodeContas).
+
 
 
 % Não mexa daqui em diante

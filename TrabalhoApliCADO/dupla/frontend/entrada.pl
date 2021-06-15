@@ -13,6 +13,7 @@
 :- use_module(bd(formapagamento), []).
 :- use_module(bd(contabancaria), []).
 :- use_module(bd(empresa), []).
+:- use_module(bd(planodeContas), []).
 
 
 entrada(_Pedido) :-
@@ -27,7 +28,8 @@ entrada(_Pedido) :-
                         \link_tesouraria(1),
                         \link_formapagamento(1),
                         \link_contabancaria(1),
-                        \link_empresa(1)
+                        \link_empresa(1),
+                        \link_planodeContas(1)
                           ])
                 ])
         ]).
@@ -72,6 +74,11 @@ link_empresa(1) -->
     html(a([ class(['nav-link']),
         href('/empresa')],
         'Cadastro Empresa')).
+
+link_planodeContas(1) -->
+    html(a([ class(['nav-link']),
+        href('/planodeContas')],
+        'Cadastro Plano de Contas')).
 
 
 enviar_ou_cancelar(RotaDeRetorno) -->

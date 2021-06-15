@@ -20,7 +20,7 @@ form_planodeContas -->
                 onsubmit("redirecionaResposta( event, '/' )"),
                 action('/api/v1/planodeContas/') ],
               [ \metodo_de_envio('POST'),
-                    \campo(id_ContasBancarias,'Id contas Bancárias:',text),
+                    \campo(id_ContasBancarias,'Id contas Bancarias:',text),
                     \campo(classificacao,'Classificacao:',text),
                     \campo(tipoConta,'Tipo Conta(poupanca/corrente):',text),
                     \campo(descricao,'Cnpj/CPF:',text),
