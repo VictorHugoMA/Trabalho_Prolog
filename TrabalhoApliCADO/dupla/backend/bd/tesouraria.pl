@@ -4,6 +4,7 @@
    ).
 
 :- use_module(library(persistency)).
+:- use_module(chave,[]).
 
 :- persistent
    tabTesouraria(id_tesouraria:nonneg,
@@ -11,12 +12,12 @@
                 id_cliente:nonneg,
                 id_planoContas:nonneg,
                 id_fornecedores:nonneg,
-                formapagamento_tes:atom,
-                valor_tes:atom,
-                numero_tes:atom,
-                data_emissao_tes:atom,
-                data_venc_tes:atom,
-                data_disp_tes:atom).
+                formapagamento_tes:string,
+                valor_tes:string,
+                numero_tes:string,
+                data_emissao_tes:string,
+                data_venc_tes:string,
+                data_disp_tes:string).
                 
 :- initialization( at_halt(db_sync(gc(always))) ).
 
