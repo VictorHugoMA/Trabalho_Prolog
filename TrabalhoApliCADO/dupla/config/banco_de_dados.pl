@@ -9,7 +9,7 @@ tabela(clientes).
 /* tabela(cadastroContaBancaria).
 tabela(cadastroEmpresa). */
 tabela(tesouraria).
-/* tabela(formapagamento). */
+tabela(formapagamento).
 
 
 % Não mexa daqui em diante
