@@ -81,7 +81,7 @@ http:location(webfonts, root(webfonts), []).
 :- http_handler( api1(tesouraria/Idtesouraria), api_tesouraria:tesouraria(Metodo, Idtesouraria),
                  [ method(Metodo),
                    methods([ get, post, put, delete ]) ]).
-:- http_handler( api1(formapagamento/Idformapagamento), api_formapagamento:formapagamento(Metodo, Idformapagamento),
+/* :- http_handler( api1(formapagamento/Idformapagamento), api_formapagamento:formapagamento(Metodo, Idformapagamento),
                  [ method(Metodo),
                    methods([ get, post, put, delete ]) ]).
 %Guilherme
@@ -91,3 +91,4 @@ http:location(webfonts, root(webfonts), []).
 :- http_handler( api1(cadastroEmpresa/IdEmpresas), cadastroEmpresa(Metodo, IdEmpresas),
                  [ method(Metodo),
                    methods([ get, post, put, delete ]) ]).
+ */
