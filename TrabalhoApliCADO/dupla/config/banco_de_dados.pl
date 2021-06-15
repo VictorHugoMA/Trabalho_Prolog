@@ -14,7 +14,7 @@ tabela(formapagamento).
 
 % Não mexa daqui em diante
 
-:- initialization( carrega_tabelas ).
+:- initialization(carrega_tabelas).
 
 
 carrega_tabelas():-

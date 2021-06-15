@@ -1,34 +1,3 @@
-/* :- module(
-       formapagamento,
-       [carrega_tab/1, formapagamento/2, insere/2, remove/1, atualiza/2]
-   ).
-
-:- use_module(library(persistency)).
-:- use_module(chave,[]).
-
-:- persistent
-   formapagamento(id_formapagamento:nonneg,
-                descr_formapagento:string).
-
-:- initialization( at_halt(db_sync(gc(always))) ).
-
-carrega_tab(ArqTabela):- db_attach(ArqTabela,[]).
-
-
-insere(Id_formapagamento, Descr_formapagento):-
-    chave:pk(formapagamento, Id_formapagamento),
-    with_mutex(formapagamento,
-               assert_formapagamento(Id_formapagamento, Descr_formapagento)).
-
-remove(Id_formapagamento):-
-    with_mutex(formapagamento,
-               retract_formapagamento(Id_formapagamento,_)).
-
-atualiza(Id_formapagamento, Descr_formapagento):-
-    with_mutex(formapagamento,
-               (  retractall_formapagamento(Id_formapagamento,_),
-                  assert_formapagamento(Id_formapagamento, Descr_formapagento))). */
-
 :- module(
        formapagamento,
        [ carrega_tab/1,
@@ -42,22 +11,26 @@ atualiza(Id_formapagamento, Descr_formapagento):-
 :- use_module(chave,[]).
 
 :- persistent
-   formapagamento( id_formapagamento:nonneg,
-                    descr_formapagento:string).
+   formapagamento( idformapagamento:nonneg,
+                    descrformapagento:string).
 
-:- initialization( ( db_attach('tbl_formapagamento.pl', []),
-                     at_halt(db_sync(gc(always))) )).
+:- initialization( at_halt(db_sync(gc(always))) ).
 
-insere(Id_formapagamento, Descr_formapagento):-
-    chave:pk(formapagamento,Id_formapagamento),
+carrega_tab(ArqTabela):- db_attach(ArqTabela,[]).
+
+/* :- initialization( ( db_attach('tbl_formapagamento.pl', []),
+                     at_halt(db_sync(gc(always))) )). */
+
+insere(Idformapagamento, Descrformapagento):-
+    chave:pk(formapagamento,Idformapagamento),
     with_mutex(formapagamento,
-               assert_formapagamento(Id_formapagamento,Descr_formapagento)).
+               assert_formapagamento(Idformapagamento,Descrformapagento)).
 
- remove(Id_formapagamento):-
+ remove(Idformapagamento):-
     with_mutex(formapagamento,
-               retract_formapagamento(Id_formapagamento,_)).
+               retract_formapagamento(Idformapagamento,_)).
 
-atualiza(Id_formapagamento, Descr_formapagento):-
+atualiza(Idformapagamento, Descrformapagento):-
     with_mutex(formapagamento,
-               ( retractall_formapagamento(Id_formapagamento,_),
-                 assert_formapagamento(Id_formapagamento,Descr_formapagento)) ).
+               ( retractall_formapagamento(Idformapagamento,_),
+                 assert_formapagamento(Idformapagamento,Descrformapagento)) ).

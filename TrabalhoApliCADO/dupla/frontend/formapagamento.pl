@@ -20,6 +20,6 @@ form_formapagamento -->
                 onsubmit("redirecionaResposta( event, '/' )"),
                 action('/api/v1/formapagamento/') ],
               [ \metodo_de_envio('POST'),
-                \campo(descr_formapagento, 'Descricao', text),
+                \campo(descrformapagento, 'Descricao', text),
                 \enviar_ou_cancelar('/')
               ])).
