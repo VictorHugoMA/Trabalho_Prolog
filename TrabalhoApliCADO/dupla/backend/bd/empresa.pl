@@ -8,13 +8,13 @@
 :- use_module(chave,[]).
 
 :- persistent
-   empresa( idempresas:nonneg,
-                razaosocial:string,
+   empresa( idEmpresa:nonneg,
+                razaoSocial:string,
                 identificacao:string,
-                tipopessoa:string,
+                tipoPessoa:string,
                 cnpj:string,
-                inscricaoestadual:string,
-                inscricaomunicipal:string,
+                inscricaoEstadual:string,
+                inscricaoMunicipal:string,
                 endereco:string,
                 bairro:string,
                 municipio:string,
@@ -22,7 +22,7 @@
                 uf:string,
                 telefone:string,
                 email:string,
-                nometitular:string,
+                nomeTitular:string,
                 cpf:string,
                 funcao:string).
 
@@ -30,48 +30,16 @@
 
 carrega_tab(ArqTabela):- db_attach(ArqTabela,[]).
 
-insere(Idempresas,Razaosocial, 
-                    Identificacao,Tipopessoa, 
-                    Cnpj,Inscricaoestadual,
-                    Inscricaomunicipal,Endereco, 
-                    Bairro,Municipio, 
-                    Cep,Uf, 
-                    Telefone,Email, 
-                    Nometitular,Cpf,
-                    Funcao):-
-    chave:pk(empresa , Idempresas),
+insere(IdEmpresa,RazaoSocial,Identificacao,TipoPessoa,Cnpj,InscricaoEstadual,InscricaoMunicipal,Endereco,Bairro,Municipio,Cep,Uf,Telefone,Email,NomeTitular,Cpf,Funcao):-
+    chave:pk(empresa , IdEmpresa),
     with_mutex(empresa,
-                assert_empresa(Idempresas,Razaosocial, 
-                    Identificacao,Tipopessoa, 
-                    Cnpj,Inscricaoestadual,
-                    Inscricaomunicipal,Endereco, 
-                    Bairro,Municipio, 
-                    Cep,Uf, 
-                    Telefone,Email, 
-                    Nometitular,Cpf,
-                    Funcao)).
+                assert_empresa(IdEmpresa,RazaoSocial,Identificacao,TipoPessoa,Cnpj,InscricaoEstadual,InscricaoMunicipal,Endereco,Bairro,Municipio,Cep,Uf,Telefone,Email,NomeTitular,Cpf,Funcao)).
 
-remove(Idempresas):-
+remove(IdEmpresa):-
     with_mutex(empresa,
-               retract_empresa(Idempresas,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_)).
+               retract_empresa(IdEmpresa,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_)).
 
-atualiza(Idempresas,Razaosocial, 
-                    Identificacao,Tipopessoa, 
-                    Cnpj,Inscricaoestadual,
-                    Inscricaomunicipal,Endereco, 
-                    Bairro,Municipio, 
-                    Cep,Uf, 
-                    Telefone,Email, 
-                    Nometitular,Cpf,
-                    Funcao):-
+atualiza(IdEmpresa,RazaoSocial,Identificacao,TipoPessoa,Cnpj,InscricaoEstadual,InscricaoMunicipal,Endereco,Bairro,Municipio,Cep,Uf,Telefone,Email,NomeTitular,Cpf,Funcao):-
     with_mutex(empresa,
-               ( retractall_empresa(Idempresas,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),
-                 assert_empresa(Idempresas,Razaosocial, 
-                    Identificacao,Tipopessoa, 
-                    Cnpj,Inscricaoestadual,
-                    Inscricaomunicipal,Endereco, 
-                    Bairro,Municipio, 
-                    Cep,Uf, 
-                    Telefone,Email, 
-                    Nometitular,Cpf,
-                    Funcao))).
+               ( retractall_empresa(IdEmpresa,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_),
+                 assert_empresa(IdEmpresa,RazaoSocial,Identificacao,TipoPessoa,Cnpj,InscricaoEstadual,InscricaoMunicipal,Endereco,Bairro,Municipio,Cep,Uf,Telefone,Email,NomeTitular,Cpf,Funcao))).

@@ -91,6 +91,6 @@ http:location(webfonts, root(webfonts), []).
                  [ method(Metodo),
                    methods([ get, post, put, delete ]) ]).
 
-:- http_handler( api1(empresa/Idempresas), api_empresa:empresa(Metodo, Idempresas),
+:- http_handler( api1(empresa/IdEmpresa), api_empresa:empresa(Metodo, IdEmpresa),
                  [ method(Metodo),
                    methods([ get, post, put, delete ]) ]).
