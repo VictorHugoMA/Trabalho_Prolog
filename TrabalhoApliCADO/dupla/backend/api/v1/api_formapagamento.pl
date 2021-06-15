@@ -46,49 +46,49 @@ formapagamento(post, _, Pedido):-
   Os dados são passados no corpo do pedido no formato JSON.
 */
 formapagamento(put, AtomId, Pedido):-
-    atom_number(AtomId, Id),
+    atom_number(AtomId, Idformapagamento),
     http_read_json_dict(Pedido, Dados),
     !,
-    atualiza_tupla(Dados, Id).
+    atualiza_tupla(Dados, Idformapagamento).
 
 /*
    DELETE api/v1/formapagamento/Id
    Apaga o formapagamento com o Id informado
 */
 formapagamento(delete, AtomId, _Pedido):-
-    atom_number(AtomId, Id),
+    atom_number(AtomId, Idformapagamento),
     !,
-    formapagamento:remove(Id),
+    formapagamento:remove(Idformapagamento),
     throw(http_reply(no_content)).
 
 /* Se algo ocorrer de errado, a resposta de metodo não
    permitido será retornada.
  */
 
-formapagamento(Metodo, Id, _Pedido) :-
-    throw(http_reply(method_not_allowed(Metodo, Id))).
+formapagamento(Metodo, Idformapagamento, _Pedido) :-
+    throw(http_reply(method_not_allowed(Metodo, Idformapagamento))).
 
 
-insere_tupla( _{ descr_formapagento: Descr_formapagento}):-
+insere_tupla( _{ descrformapagento: Descrformapagento}):-
     % Validar URL antes de inserir
-    formapagamento:insere(Id, Descr_formapagento)
-    -> envia_tupla(Id)
+    formapagamento:insere(Idformapagamento, Descrformapagento)
+    -> envia_tupla(Idformapagamento)
     ;  throw(http_reply(bad_request('URL ausente'))).
 
-atualiza_tupla( _{ descr_formapagento: Descr_formapagento}, Id):-
-       formapagamento:atualiza(Id, Descr_formapagento)
-    -> envia_tupla(Id)
-    ;  throw(http_reply(not_found(Id))).
+atualiza_tupla( _{ descrformapagento: Descrformapagento}, Idformapagamento):-
+       formapagamento:atualiza(Idformapagamento, Descrformapagento)
+    -> envia_tupla(Idformapagamento)
+    ;  throw(http_reply(not_found(Idformapagamento))).
 
 
-envia_tupla(Id):-
-       formapagamento:formapagamento(Id, Descr_formapagento)
-    -> reply_json_dict( _{id:Id, descr_formapagento: Descr_formapagento} )
-    ;  throw(http_reply(not_found(Id))).
+envia_tupla(Idformapagamento):-
+       formapagamento:formapagamento(Idformapagamento, Descrformapagento)
+    -> reply_json_dict( _{idformapagamento:Idformapagamento, descrformapagento: Descrformapagento} )
+    ;  throw(http_reply(not_found(Idformapagamento))).
 
 
 envia_tabela :-
-    findall( _{id:Id, descr_formapagento: Descr_formapagento},
-             formapagamento:formapagamento(Id,Descr_formapagento),
+    findall( _{idformapagamento:Idformapagamento, descrformapagento: Descrformapagento},
+             formapagamento:formapagamento(Idformapagamento,Descrformapagento),
              Tuplas ),
     reply_json_dict(Tuplas).

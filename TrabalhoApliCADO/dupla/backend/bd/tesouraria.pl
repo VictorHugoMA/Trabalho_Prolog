@@ -23,6 +23,9 @@
 
 carrega_tab(ArqTabela):- db_attach(ArqTabela,[]).
 
+/* :- initialization( ( db_attach('tbl_tesouraria.pl', []),
+                     at_halt(db_sync(gc(always))) )). */
+
 insere(Idtesouraria, Idempresa, Idcliente, IdplanoContas, Idfornecedores,
          Formapagamentotes, Valortes, Numerotes, Dataemissaotes,
          Datavenctes, Datadisptes):-
