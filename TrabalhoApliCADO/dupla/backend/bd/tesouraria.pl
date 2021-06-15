@@ -8,10 +8,10 @@
 
 :- persistent
    tesouraria(idtesouraria:nonneg,
-                idempresa:nonneg,
-                idcliente:nonneg,
-                idplanoContas:nonneg,
-                idfornecedores:nonneg,
+                idempresa:string,
+                idcliente:string,
+                idplanoContas:string,
+                idfornecedores:string,
                 formapagamentotes:string,
                 valortes:string,
                 numerotes:string,
@@ -26,25 +26,16 @@ carrega_tab(ArqTabela):- db_attach(ArqTabela,[]).
 /* :- initialization( ( db_attach('tbl_tesouraria.pl', []),
                      at_halt(db_sync(gc(always))) )). */
 
-insere(Idtesouraria, Idempresa, Idcliente, IdplanoContas, Idfornecedores,
-         Formapagamentotes, Valortes, Numerotes, Dataemissaotes,
-         Datavenctes, Datadisptes):-
+insere(Idtesouraria,Idempresa,Idcliente,IdplanoContas,Idfornecedores,Formapagamentotes,Valortes,Numerotes,Dataemissaotes,Datavenctes,Datadisptes):-
     chave:pk(tesouraria, Idtesouraria),
     with_mutex(tesouraria,
-               assert_tesouraria(Idtesouraria, Idempresa, Idcliente, IdplanoContas, Idfornecedores,
-                                    Formapagamentotes, Valortes, Numerotes, Dataemissaotes,
-                                    Datavenctes, Datadisptes)).
+               assert_tesouraria(Idtesouraria,Idempresa,Idcliente,IdplanoContas,Idfornecedores,Formapagamentotes,Valortes,Numerotes,Dataemissaotes,Datavenctes,Datadisptes)).
 
 remove(Idtesouraria):-
     with_mutex(tesouraria,
-               retract_tesouraria(Idtesouraria,_, _, _, _, _, _, _, _, _, _)).
+               retract_tesouraria(Idtesouraria,_,_,_,_,_,_,_,_,_,_)).
 
-atualiza(Idtesouraria, Idempresa, Idcliente, IdplanoContas, Idfornecedores,
-                                    Formapagamentotes, Valortes, Numerotes, Dataemissaotes,
-                                    Datavenctes, Datadisptes):-
+atualiza(Idtesouraria,Idempresa,Idcliente,IdplanoContas,Idfornecedores,Formapagamentotes,Valortes,Numerotes,Dataemissaotes,Datavenctes,Datadisptes):-
     with_mutex(tesouraria,
-               (  retractall_tesouraria(Idtesouraria,_, _, _, _, _, _, _, _, _, _),
-               
-                  assert_tesouraria( Idtesouraria, Idempresa, Idcliente, IdplanoContas, Idfornecedores,
-                                    Formapagamentotes, Valortes, Numerotes, Dataemissaotes,
-                                    Datavenctes, Datadisptes))).
+               (  retractall_tesouraria(Idtesouraria,_,_,_,_,_,_,_,_,_,_),               
+                  assert_tesouraria(Idtesouraria,Idempresa,Idcliente,IdplanoContas,Idfornecedores,Formapagamentotes,Valortes,Numerotes,Dataemissaotes,Datavenctes,Datadisptes))).
