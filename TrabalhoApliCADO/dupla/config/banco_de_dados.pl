@@ -6,8 +6,8 @@ tabela(chave).
 tabela(bookmark).
 tabela(usuarios).
 tabela(clientes).
-/* tabela(cadastroContaBancaria).
-tabela(cadastroEmpresa). */
+tabela(contabancaria).
+tabela(empresa). 
 tabela(tesouraria).
 tabela(formapagamento).
 

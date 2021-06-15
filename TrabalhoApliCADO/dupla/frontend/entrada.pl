@@ -11,8 +11,8 @@
 :- use_module(bd(clientes), []).
 :- use_module(bd(tesouraria), []).
 :- use_module(bd(formapagamento), []).
-:- use_module(bd(cadastroContaBancaria), []).
-:- use_module(bd(cadastroEmpresa), []).
+:- use_module(bd(contabancaria), []).
+:- use_module(bd(empresa), []).
 
 
 entrada(_Pedido) :-
@@ -65,12 +65,12 @@ link_formapagamento(1) -->
 
 link_contabancaria(1) -->
     html(a([ class(['nav-link']),
-        href('/cadastroContaBancaria')],
+        href('/contabancaria')],
         'Cadastro Conta Bancaria')).
 
 link_empresa(1) -->
     html(a([ class(['nav-link']),
-        href('/cadastroEmpresa')],
+        href('/empresa')],
         'Cadastro Empresa')).
 
 

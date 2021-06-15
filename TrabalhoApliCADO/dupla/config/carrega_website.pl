@@ -23,8 +23,8 @@
                   frontend(clientes),
                   frontend(tesouraria),
                   frontend(formapagamento),
-                  frontend(cadastroContaBancaria),
-                  frontend(cadastroEmpresa)
+                  frontend(contabancaria),
+                  frontend(empresa)
               ],
               [ silent(true),
                 if(not_loaded) ]).
@@ -36,9 +36,9 @@
                 api1(api_usuarios),
                 api1(api_clientes),
                 api1(api_tesouraria),
-                api1(api_formapagamento)/*,
-                api1(api_cadastroContaBancaria),
-                api1(api_cadastroEmpresa) */ % API REST
+                api1(api_formapagamento),
+                api1(api_contabancaria),
+                api1(api_empresa) % API REST
               ],
               [ silent(true),
                 if(not_loaded),

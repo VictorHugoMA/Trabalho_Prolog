@@ -75,7 +75,7 @@ insere_tupla( _{ usuario:User,nome:Nome,senha:Senha,confirmaSenha:Confirmasenha}
     -> envia_tupla(Iduser)
     ;  throw(http_reply(bad_request('URL ausente'))).
 
-atualiza_tupla( _{ user:User,nome:Nome,senha:Senha,confirmasenha:Confirmasenha}, Iduser):-
+atualiza_tupla( _{ usuario:User,nome:Nome,senha:Senha,confirmasenha:Confirmasenha}, Iduser):-
        usuarios:atualiza(Iduser,User,Nome,Senha,Confirmasenha)
     -> envia_tupla(Iduser)
     ;  throw(http_reply(not_found(Iduser))).

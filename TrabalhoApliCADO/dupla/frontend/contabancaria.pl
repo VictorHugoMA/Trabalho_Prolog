@@ -5,7 +5,7 @@
 
 :- ensure_loaded(gabarito(boot5rest)).
 
-cadastroContaBancaria(_Pedido):-
+contabancaria(_Pedido):-
     reply_html_page(
         boot5rest,
         [ title('Cadastro Conta Bancaria')],
@@ -18,11 +18,11 @@ cadastroContaBancaria(_Pedido):-
 form_contabancaria -->
     html(form([ id('bookmark-form'),
                 onsubmit("redirecionaResposta( event, '/' )"),
-                action('/api/v1/cadastroContaBancaria/') ],
+                action('/api/v1/contabancaria/') ],
               [ \metodo_de_envio('POST'),
                   \campo(classificacao,'Descricao',text),
-                  \campo(numeroConta,'Numero da Conta',number),
-                  \campo(numeroAgencia,'Numero da Agencia',number),
+                  \campo(numeroConta,'Numero da Conta',text),
+                  \campo(numeroAgencia,'Numero da Agencia',text),
                   \campo(dataSaldoinicial,'Data Incial:',date),
                 \enviar_ou_cancelar('/')
               ])).

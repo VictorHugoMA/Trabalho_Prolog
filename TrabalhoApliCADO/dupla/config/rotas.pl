@@ -58,8 +58,8 @@ http:location(webfonts, root(webfonts), []).
 :- http_handler(root(clientes), clientes , []).
 :- http_handler(root(tesouraria), tesouraria , []).
 :- http_handler(root(formapagamento), formapagamento , []).
-:- http_handler(root(cadastroContaBancaria), cadastroContaBancaria , []).
-:- http_handler(root(cadastroEmpresa), cadastroEmpresa , []).
+:- http_handler(root(contabancaria), contabancaria , []).
+:- http_handler(root(empresa), empresa , []).
 
 
 %% A página para edição de um bookmark existente
@@ -85,12 +85,12 @@ http:location(webfonts, root(webfonts), []).
                  [ method(Metodo),
                    methods([ get, post, put, delete ]) ]).
 
-/*
+
 %Guilherme
-:- http_handler( api1(cadastroContaBancaria/IdContaBancarias), cadastroContaBancaria(Metodo, IdContaBancarias),
+:- http_handler( api1(contabancaria/IdContaBancarias), api_contabancaria:contabancaria(Metodo, IdContaBancarias),
                  [ method(Metodo),
                    methods([ get, post, put, delete ]) ]).
-:- http_handler( api1(cadastroEmpresa/IdEmpresas), cadastroEmpresa(Metodo, IdEmpresas),
+
+:- http_handler( api1(empresa/Idempresas), api_empresa:empresa(Metodo, Idempresas),
                  [ method(Metodo),
                    methods([ get, post, put, delete ]) ]).
- */

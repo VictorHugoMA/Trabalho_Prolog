@@ -5,7 +5,7 @@
 
 :- ensure_loaded(gabarito(boot5rest)).
 
-cadastroEmpresa(_Pedido):-
+empresa(_Pedido):-
     reply_html_page(
         boot5rest,
         [ title('Cadastro Empresa')],
@@ -18,23 +18,23 @@ cadastroEmpresa(_Pedido):-
 form_empresa -->
     html(form([ id('bookmark-form'),
                 onsubmit("redirecionaResposta( event, '/' )"),
-                action('/api/v1/cadastroEmpresa/') ],
+                action('/api/v1/empresa/') ],
               [ \metodo_de_envio('POST'),
-                    \campo(razaoSocial,'Razao Social:',text),
+                    \campo(razaosocial,'Razao Social:',text),
                     \campo(identificacao,'Identificacao:',text),
                     \campo(tipoPessoa,'Tipo pessoa:',text),
-                    \campo(cnpj,'CNPJ',atom),
-                    \campo(inscricaoEstadual,'Inscricao Estadual:',text),
-                    \campo(incricaoMunicipal,'inscricao Municipal:',text),
+                    \campo(cnpj,'CNPJ',text),
+                    \campo(inscricaoestadual,'Inscricao Estadual:',text),
+                    \campo(incricaomunicipal,'inscricao Municipal:',text),
                     \campo(endereco,'Endereco:',text),
                     \campo(bairro,'Bairro:',text),
                     \campo(municipio,'Municipio:',text),
-                    \campo(cep,'CEP:',atom),
+                    \campo(cep,'CEP:',text),
                     \campo(uf,'Uf',text),
-                    \campo(telefone,'telefone:',atom),
+                    \campo(telefone,'telefone:',text),
                     \campo(email,'E-mail:',text),
-                    \campo(nomeTitular,'Nome',text),
-                    \campo(cpf,'CPF',atom),
+                    \campo(nometitular,'Nome',text),
+                    \campo(cpf,'CPF',text),
                     \campo(funcao,'Funcao',text),
                 \enviar_ou_cancelar('/')
               ])).
