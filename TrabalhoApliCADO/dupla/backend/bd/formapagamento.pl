@@ -45,9 +45,8 @@ atualiza(Id_formapagamento, Descr_formapagento):-
    formapagamento( id_formapagamento:nonneg,
                     descr_formapagento:string).
 
-:- initialization( at_halt(db_sync(gc(always))) ).
-
-carrega_tab(ArqTabela):- db_attach(ArqTabela,[]).
+:- initialization( ( db_attach('tbl_formapagamento.pl', []),
+                     at_halt(db_sync(gc(always))) )).
 
 insere(Id_formapagamento, Descr_formapagento):-
     chave:pk(formapagamento,Id_formapagamento),
