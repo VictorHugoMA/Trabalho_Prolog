@@ -35,10 +35,10 @@
 :- load_files([ api1(bookmarks),
                 api1(api_usuarios),
                 api1(api_clientes),
-                api1(tesouraria),
+                api1(api_tesouraria),
                 api1(api_formapagamento),
-                api1(cadastroContaBancaria),
-                api1(cadastroEmpresa) % API REST
+                api1(api_cadastroContaBancaria),
+                api1(api_cadastroEmpresa) % API REST
               ],
               [ silent(true),
                 if(not_loaded),
