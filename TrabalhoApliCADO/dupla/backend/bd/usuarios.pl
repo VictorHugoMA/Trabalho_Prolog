@@ -8,13 +8,14 @@
    ).
 
 :- use_module(library(persistency)).
+:- use_module(library(crypto)).
 :- use_module(chave,[]).
 
 :- persistent
    usuarios( idusuarios:nonneg,
                     usuario:string,
                     nome:string,
-                    senha:string,
+                    senha:atom,
                     confirmaSenha:string).
 
 :- initialization( at_halt(db_sync(gc(always))) ).
@@ -23,8 +24,8 @@ carrega_tab(ArqTabela):- db_attach(ArqTabela,[]).
 
 insere(Iduser,User,Nome,Senha,Confirmasenha):-
     chave:pk(usuario,Iduser),
-    with_mutex(usuarios,
-               assert_usuarios(Iduser,User,Nome,Senha,Confirmasenha)).
+    with_mutex(usuarios,(crypto_password_hash(Senha,Hash),
+               assert_usuarios(Iduser,User,Nome,Hash,Confirmasenha))).
 
  remove(Iduser):-
     with_mutex(usuarios,
@@ -36,3 +37,7 @@ atualiza(Iduser,User,Nome,Senha,Confirmasenha):-
                  assert_usuarios(Iduser,User,Nome,Senha,Confirmasenha)) ).
 
 
+senha_valida(User, Senha, Iduser, Nome):-
+    usuário(Iduser,User,Nome,Hash,Confirmasenha),
+    !,
+    crypto_password_hash(Senha,Hash).
