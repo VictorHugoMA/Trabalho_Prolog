@@ -5,6 +5,7 @@
 /* reply_json_dict   */
 :- use_module(library(http/http_json)).
 
+:- module(api_cadastroContaBancaria[cadastroContaBancaria/3]).
 
 :- use_module(bd(cadastroContaBancaria), []).
 
