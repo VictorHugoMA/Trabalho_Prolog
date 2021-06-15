@@ -5,6 +5,7 @@
 /* reply_json_dict   */
 :- use_module(library(http/http_json)).
 
+:- module(api_cadastroEmpresa[cadastroEmpresa/3]).
 
 :- use_module(bd(cadastroEmpresa), []).
 
