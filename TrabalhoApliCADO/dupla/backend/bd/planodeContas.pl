@@ -21,7 +21,7 @@
 
 :- initialization( at_halt(db_sync(gc(always))) ).
 
-carrega_tab(ArqTabela):- db_attach(ArqTabela,[])
+carrega_tab(ArqTabela):- db_attach(ArqTabela,[]).
 
 insere( Id_planodeContas, Id_ContasBancarias,
         Classificacao, TipoConta, Descricao,

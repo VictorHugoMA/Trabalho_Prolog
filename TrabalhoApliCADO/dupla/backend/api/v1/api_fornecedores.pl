@@ -66,7 +66,7 @@ fornecedores(delete, AtomId, _Pedido):-
  */
 
 fornecedores(Metodo, IdFornec, _Pedido) :-
-    throw(http_reply(method_not_allowed(Método, IdFornec))).
+    throw(http_reply(method_not_allowed(Metodo, IdFornec))).
 
 
 insere_tupla( _{ razaoSocial:RazaoSocial, identificacao:Indentificacao, 
