@@ -25,7 +25,8 @@
                   frontend(formapagamento),
                   frontend(contabancaria),
                   frontend(empresa),
-                  frontend(planodeContas)
+                  frontend(planodeContas),
+                  frontend(fornecedores)
               ],
               [ silent(true),
                 if(not_loaded) ]).
@@ -39,7 +40,8 @@
                 api1(api_tesouraria),
                 api1(api_formapagamento),
                 api1(api_contabancaria),
-                api1(api_empresa), 
+                api1(api_empresa),
+                api1(api_fornecedores),
                 api1(api_planodeContas) % API REST
               ],
               [ silent(true),

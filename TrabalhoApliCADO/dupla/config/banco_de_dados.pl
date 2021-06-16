@@ -11,6 +11,7 @@ tabela(empresa).
 tabela(tesouraria).
 tabela(formapagamento).
 tabela(planodeContas).
+tabela(fornecedores).
 
 
 
