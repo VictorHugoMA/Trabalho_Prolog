@@ -66,7 +66,7 @@ planodeContas(delete, AtomId, _Pedido):-
  */
 
 planodeContas(Metodo, IdPlano, _Pedido) :-
-    throw(http_reply(method_not_allowed(Método, IdPlano))).
+    throw(http_reply(method_not_allowed(Metodo, IdPlano))).
 
 
 insere_tupla( _{id_ContasBancarias: Id_ContasBancarias,
