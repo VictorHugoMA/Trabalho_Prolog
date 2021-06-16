@@ -8,7 +8,7 @@
 
 :- persistent
    planodeContas(id_planodeContas:integer,
-                 id_ContasBancarias:integer,
+                 id_ContasBancarias:string,
                  classificacao:string,
                  tipoConta:string,
                  descricao:string,

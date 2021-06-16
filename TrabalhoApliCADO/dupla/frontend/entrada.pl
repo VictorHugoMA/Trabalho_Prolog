@@ -14,6 +14,7 @@
 :- use_module(bd(contabancaria), []).
 :- use_module(bd(empresa), []).
 :- use_module(bd(planodeContas), []).
+:- use_module(bd(fornecedores)).
 
 
 entrada(_Pedido) :-
@@ -25,7 +26,7 @@ entrada(_Pedido) :-
                 nav(class(['nav','flex-column']),
                     [ \link_usuario(1),
                         \link_cliente(1),
-                        \lik_fornecedores(1),
+                        \link_fornecedores(1),
                         \link_empresa(1),
                         \link_tesouraria(1),
                         \link_formapagamento(1),

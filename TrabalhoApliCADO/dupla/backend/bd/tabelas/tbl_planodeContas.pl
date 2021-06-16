@@ -1,1 +1,2 @@
-created(1623816504.1493757).
+created(1623820615.2929835).
+assert(planodeContas(64,"12-hhh","classific plano","corrente","descrição do plano de conta teste","caixa","banco","cliente","fornecedor","valor de entrada","valor de saida")).

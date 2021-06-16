@@ -23,7 +23,7 @@ form_planodeContas -->
                     \campo(id_ContasBancarias,'Id contas Bancarias:',text),
                     \campo(classificacao,'Classificacao:',text),
                     \campo(tipoConta,'Tipo Conta(poupanca/corrente):',text),
-                    \campo(descricao,'Cnpj/CPF:',text),
+                    \campo(descricao,'Descricao:',text),
                     \campo(caixa,'Caixa:',text),
                     \campo(banco,'Banco:',text),
                     \campo(cliente,'Cliente:',text),
@@ -32,4 +32,3 @@ form_planodeContas -->
                     \campo(saidaRecurso,'Valor de saque:',text),
                 \enviar_ou_cancelar('/')
               ])).
-
