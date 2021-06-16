@@ -23,14 +23,15 @@ entrada(_Pedido) :-
         [ div(class(container),
             [ h1('SISTEMAS DE INFORMACAO PARA CONTROLE FINANCEIRO DE UMA MICROEMPRESA VIA WEB'),
                 nav(class(['nav','flex-column']),
-                    [ \link_usuario(1) ,
+                    [ \link_usuario(1),
                         \link_cliente(1),
+                        \lik_fornecedores(1),
+                        \link_empresa(1),
                         \link_tesouraria(1),
                         \link_formapagamento(1),
                         \link_contabancaria(1),
-                        \link_empresa(1),
                         \link_planodeContas(1)
-                          ])
+                    ])
                 ])
         ]).
 
@@ -79,6 +80,11 @@ link_planodeContas(1) -->
     html(a([ class(['nav-link']),
         href('/planodeContas')],
         'Cadastro Plano de Contas')).
+
+link_fornecedores(1) -->
+    html(a([ class(['nav-link']),
+        href('/fornecedores')],
+        'Cadastro fornecedores')).
 
 
 enviar_ou_cancelar(RotaDeRetorno) -->
