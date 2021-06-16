@@ -36,8 +36,9 @@ atualiza(Iduser,User,Nome,Senha,Confirmasenha):-
                ( retractall_usuarios(Iduser,_,_,_,_),
                  assert_usuarios(Iduser,User,Nome,Senha,Confirmasenha)) ).
 
-
+/*
 senha_valida(User, Senha, Iduser, Nome):-
-    usuário(Iduser,User,Nome,Hash,Confirmasenha),
+    usuarios(Iduser,User,Nome,Hash,Confirmasenha),
     !,
     crypto_password_hash(Senha,Hash).
+*/
