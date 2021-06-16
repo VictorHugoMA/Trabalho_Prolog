@@ -17,7 +17,7 @@ empresa(_Pedido):-
 
 form_empresa -->
     html(form([ id('bookmark-form'),
-                onsubmit("redirecionaResposta( event, '/' )"),
+                onsubmit("redirecionaResposta( event, '/entrada' )"),
                 action('/api/v1/empresa/') ],
               [ \metodo_de_envio('POST'),
                     \campo(razaoSocial,'Razao Social:',text),
@@ -36,7 +36,7 @@ form_empresa -->
                     \campo(nomeTitular,'Nome',text),
                     \campo(cpf,'CPF',text),
                     \campo(funcao,'Funcao',text),
-                \enviar_ou_cancelar('/')
+                \enviar_ou_cancelar('/entrada')
               ])).
 
 

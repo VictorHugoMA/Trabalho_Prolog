@@ -17,6 +17,7 @@
 
 :- load_files([ gabarito(bootstrap5),  % gabarito usando Bootstrap 5
                 gabarito(boot5rest),   % Bootstrap 5 com API REST
+                frontend(login),
                 frontend(entrada),
 /*                 frontend(bookmark)
  */                frontend(usuarios),

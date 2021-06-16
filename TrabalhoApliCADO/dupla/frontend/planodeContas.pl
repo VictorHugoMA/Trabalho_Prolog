@@ -17,7 +17,7 @@ planodeContas(_Pedido):-
 
 form_planodeContas -->
     html(form([ id('planodeContas-form'),
-                onsubmit("redirecionaResposta( event, '/' )"),
+                onsubmit("redirecionaResposta( event, '/entrada' )"),
                 action('/api/v1/planodeContas/') ],
               [ \metodo_de_envio('POST'),
                     \campo(id_ContasBancarias,'Id contas Bancarias:',text),
@@ -30,5 +30,5 @@ form_planodeContas -->
                     \campo(fornecedor,'Fornecedor:',text),
                     \campo(entradaRecurso,'Valor de entrada:',text),
                     \campo(saidaRecurso,'Valor de saque:',text),
-                \enviar_ou_cancelar('/')
+                \enviar_ou_cancelar('/entrada')
               ])).

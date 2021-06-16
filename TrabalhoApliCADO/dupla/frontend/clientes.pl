@@ -17,7 +17,7 @@ clientes(_Pedido):-
 
 form_clientes -->
     html(form([ id('bookmark-form'),
-                onsubmit("redirecionaResposta( event, '/' )"),
+                onsubmit("redirecionaResposta( event, '/entrada' )"),
                 action('/api/v1/clientes/') ],
               [ \metodo_de_envio('POST'),
                     \campo(razaoSocial,'Razao Social:',text),
@@ -37,6 +37,6 @@ form_clientes -->
                     \campo(nomeTitular,'Titular:',text),
                     \campo(cpf,'CPF do Titular:',text),
                     \campo(funcao,'Funcao:',text),
-                \enviar_ou_cancelar('/')
+                \enviar_ou_cancelar('/entrada')
               ])).
 

@@ -48,7 +48,9 @@ http:location(webfonts, root(webfonts), []).
 % Rotas do Frontend
 
 %% A página inicial
-:- http_handler( root(.), entrada,   []).
+:- http_handler( root(.), login,   []).
+
+:- http_handler( root(entrada), entrada,   []).
 
 %% A página de cadastro de novos bookmarks
 /* :- http_handler( root(bookmark), cadastro, []).
@@ -102,7 +104,3 @@ http:location(webfonts, root(webfonts), []).
 :- http_handler( api1(planodeContas/IdPlano), api_planodeContas:planodeContas(Metodo, IdPlano),
                  [ method(Metodo),
                    methods([ get, post, put, delete ]) ]).
-/* 
-:- http_handler( api1(empresa/IdEmpresa), api_empresa:empresa(Metodo, IdEmpresa),
-                 [ method(Metodo),
-                   methods([ get, post, put, delete ]) ]). */

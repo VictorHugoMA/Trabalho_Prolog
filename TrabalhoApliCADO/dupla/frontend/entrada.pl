@@ -24,7 +24,7 @@ entrada(_Pedido) :-
         [ div(class(container),
             [ h1('SISTEMAS DE INFORMACAO PARA CONTROLE FINANCEIRO DE UMA MICROEMPRESA VIA WEB'),
                 nav(class(['nav','flex-column']),
-                    [ \link_usuario(1),
+                    [ /* \link_usuario(1), */
                         \link_cliente(1),
                         \link_fornecedores(1),
                         \link_empresa(1),
@@ -47,11 +47,11 @@ campo(Nome,Rotulo,Tipo) -->
     [label([for=Nome, class('form-label')],Rotulo),
         input([name=Nome,type=Tipo,class('form-control'),id=Nome])])).
 
-link_usuario(1) -->
+/* link_usuario(1) -->
     html(a([ class(['nav-link']),
             href('/usuarios')],
         'Cadastro Usuario')).
-
+ */
 link_cliente(1) -->
     html(a([ class(['nav-link']),
             href('/clientes')],

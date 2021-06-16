@@ -17,9 +17,9 @@ formapagamento(_Pedido):-
 
 form_formapagamento -->
     html(form([ id('bookmark-form'),
-                onsubmit("redirecionaResposta( event, '/' )"),
+                onsubmit("redirecionaResposta( event, '/entrada' )"),
                 action('/api/v1/formapagamento/') ],
               [ \metodo_de_envio('POST'),
                 \campo(descrformapagento, 'Descricao', text),
-                \enviar_ou_cancelar('/')
+                \enviar_ou_cancelar('/entrada')
               ])).

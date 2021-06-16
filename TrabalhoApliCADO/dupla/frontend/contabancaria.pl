@@ -17,14 +17,14 @@ contabancaria(_Pedido):-
 
 form_contabancaria -->
     html(form([ id('bookmark-form'),
-                onsubmit("redirecionaResposta( event, '/' )"),
+                onsubmit("redirecionaResposta( event, '/entrada' )"),
                 action('/api/v1/contabancaria/') ],
               [ \metodo_de_envio('POST'),
                   \campo(classificacao,'Descricao',text),
                   \campo(numeroConta,'Numero da Conta',text),
                   \campo(numeroAgencia,'Numero da Agencia',text),
                   \campo(dataSaldoinicial,'Data Incial:',date),
-                \enviar_ou_cancelar('/')
+                \enviar_ou_cancelar('/entrada')
               ])).
 
 

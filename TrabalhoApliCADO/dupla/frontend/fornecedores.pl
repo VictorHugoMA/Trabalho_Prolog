@@ -17,7 +17,7 @@ fornecedores(_Pedido):-
 
 form_fornecedores -->
     html(form([ id('fornecedores-form'),
-                onsubmit("redirecionaResposta( event, '/' )"),
+                onsubmit("redirecionaResposta( event, '/entrada' )"),
                 action('/api/v1/fornecedores/') ],
               [ \metodo_de_envio('POST'),
                     \campo(razaoSocial,'Razao Social:',text),
@@ -36,5 +36,5 @@ form_fornecedores -->
                     \campo(nomeTitular,'Titular:',text),
                     \campo(cpf,'CPF do Titular:',text),
                     \campo(funcao,'Funcao:',text),
-                \enviar_ou_cancelar('/')
+                \enviar_ou_cancelar('/entrada')
               ])).
