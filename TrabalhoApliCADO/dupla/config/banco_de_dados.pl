@@ -3,7 +3,6 @@
 % Coloque aqui todas as tabelas do banco.
 
 tabela(chave).
-tabela(bookmark).
 tabela(usuarios).
 tabela(clientes).
 tabela(contabancaria).

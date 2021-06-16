@@ -1,4 +1,4 @@
-created(1623879541.905429).
+created(1623879680.518325).
 assert(formapagamento(3,"cavalo")).
 assert(formapagamento(4,"cavalo")).
 assert(formapagamento(5,"Cartao")).

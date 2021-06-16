@@ -19,15 +19,14 @@
                 gabarito(boot5rest),   % Bootstrap 5 com API REST
                 frontend(login),
                 frontend(entrada),
-/*                 frontend(bookmark)
- */                frontend(usuarios),
-                  frontend(clientes),
-                  frontend(tesouraria),
-                  frontend(formapagamento),
-                  frontend(contabancaria),
-                  frontend(empresa),
-                  frontend(planodeContas),
-                  frontend(fornecedores)
+                frontend(usuarios),
+                frontend(clientes),
+                frontend(tesouraria),
+                frontend(formapagamento),
+                frontend(contabancaria),
+                frontend(empresa),
+                frontend(planodeContas),
+                frontend(fornecedores)
               ],
               [ silent(true),
                 if(not_loaded) ]).
@@ -35,8 +34,7 @@
 
 % Carrega o backend
 
-:- load_files([ api1(bookmarks),
-                api1(api_usuarios),
+:- load_files([ api1(api_usuarios),
                 api1(api_clientes),
                 api1(api_tesouraria),
                 api1(api_formapagamento),
